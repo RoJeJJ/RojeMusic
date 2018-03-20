@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ce3d3a</color>
+    <color name="colorPrimaryDark">#ce3d3a</color>
+    <color name="colorAccent">#ce3d3a</color>
+
+    <color name="theme_primary_color">#ce3d3a</color>
+    <color name="background_material_light_1">#f5f5f5</color>
+    <color name="dark_list_title_bg">#e0e0e0</color>
+    
+    <!--高亮突出-->
+    <color name="HighlightRed">#ce3d3a</color>
+    <!--主要文字-->
+    <color name="primaryText">#333333</color>
+    <!--链接文字-->
+    <color name="linkText">#477aac</color>
+
+    <!--普通问题-->
+    <color name="normalText">#666666</color>
+    <!--次要文字-->
+    <color name="secondText">#888888</color>
+    <!--辅助,次要,排序-->
+    <color name="subText">#999999</color>
+    <color name="subText2">#b2b2b2</color>
+    <!--下载列表,失效列表-->
+    <color name="subText3">#cccccc</color>
+    <!--底色-->
+    <color name="backgroundColor">#f2f4f5</color>
+    <!--分割模块的标题栏,底色 动态资源地图-->
+    <color name="divideBackgroundColor">#0d000000</color>
+    <!--分割线底色-->
+    <color name="divide">#19000000</color>
+
+    <color name="disableText">#ef9a9a</color>
+
+    <color name="pl_cover_bg">#DEDBDE</color>
+    <color name="dot_normal">#aadedbde</color>
+    <color name="fm_bg_alpha">#af000000</color>
+
+</resources>

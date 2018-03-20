@@ -1,0 +1,22 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="ripple_radius">55dp</dimen>
+    <dimen name="topinfo_ban_height">172dp</dimen>
+    <dimen name="list_item_height_56">56dp</dimen>
+    <dimen name="list_item_height_52">52dp</dimen>
+    <dimen name="list_item_height_48">48dp</dimen>
+    <dimen name="height28">28dp</dimen>
+    <dimen name="tablayoutH">28dp</dimen>
+
+    <dimen name="padding8">8dp</dimen>
+    <dimen name="padding16">16dp</dimen>
+    <dimen name="padding4">4dp</dimen>
+    <dimen name="height32">32dp</dimen>
+    <dimen name="padding2">2dp</dimen>
+    <dimen name="statusBarHeight">0dp</dimen>
+
+    //文本大小
+    <dimen name="textSize10">10sp</dimen>
+    <dimen name="textSize8">8sp</dimen>
+</resources>

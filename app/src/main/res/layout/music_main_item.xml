@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height_52"
+    android:orientation="horizontal"
+    android:padding="4dp">
+    <com.bilibili.magicasakura.widgets.TintImageView
+        android:id="@+id/main_item_iv"
+        android:layout_width="@dimen/list_item_height_52"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:src="@drawable/music_icn_local"
+        android:scaleType="centerInside"/>
+    <LinearLayout
+        android:id="@+id/main_item_title_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/main_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TitleText16"
+            android:text="@string/music_local"/>
+        <TextView
+            android:layout_marginLeft="2dp"
+            android:id="@+id/main_item_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/SubText12"
+            android:text="@string/count_num"
+            android:layout_marginStart="2dp" />
+    </LinearLayout>
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/main_item_end_icn"
+        android:layout_width="@dimen/list_item_height_52"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside" />
+
+</LinearLayout>

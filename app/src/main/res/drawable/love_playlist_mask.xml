@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#f000"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/note_btn_love"/>
+</layer-list>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="AppTheme.base">
+    </style>
+
+    <style name="toolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:actionBarItemBackground">@drawable/toolbarItemBackground</item>
+        <item name="android:selectableItemBackground">@drawable/toolbarItemBackground</item>
+        <item name="android:titleTextAppearance">@style/Toolbar.Title</item>
+        <item name="android:subtitleTextStyle">@style/Toolbar.SubTitle</item>
+    </style>
+</resources>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_material_light_1">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/topmenu_divider"
+        android:layout_alignParentTop="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="172dp">
+
+                <ImageView
+                    android:id="@+id/topmenu_bgimg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY" />
+
+                <Button
+                    android:id="@+id/topmenu_login"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/round_btn_bg"
+                    android:text="@string/nav_str_login"
+                    android:textColor="@android:color/white" />
+
+                <RelativeLayout
+                    android:id="@+id/topmenu_profile_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+
+                    <ImageView
+                        android:id="@+id/avatar"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:contentDescription="@null"
+                        android:layout_above="@+id/profileLayout"
+                        android:layout_marginBottom="8dp"
+                        android:scaleType="centerInside"/>
+
+                        <LinearLayout
+                            android:id="@+id/profileLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:padding="2dp">
+
+                                <TextView
+                                    android:id="@+id/nickname"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:lines="1"
+                                    android:maxWidth="250dp"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="18sp" />
+
+                                <TextView
+                                    android:id="@+id/level"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_marginStart="4dp"
+                                    android:background="@drawable/profile_tag_lv"
+                                    android:gravity="center"
+                                    android:lines="1"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="@dimen/textSize10"
+                                    android:textStyle="italic" />
+                            </LinearLayout>
+
+                            <Button
+                                style="?android:attr/borderlessButtonStyle"
+                                android:layout_width="56dp"
+                                android:layout_height="28dp"
+                                android:layout_gravity="start"
+                                android:background="@drawable/round_btn_sign"
+                                android:drawableLeft="@drawable/btn_login_icn_jifen"
+                                android:drawableStart="@drawable/btn_login_icn_jifen"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:text="@string/nav_str_sign"
+                                android:textAlignment="textStart"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/textSize10" />
+                        </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_msg"
+                    android:drawableStart="@drawable/topmenu_icn_msg"
+                    android:gravity="center"
+                    android:text="@string/nav_str_msg"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_vip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_member"
+                    android:drawableStart="@drawable/topmenu_icn_member"
+                    android:gravity="center"
+                    android:text="@string/nav_str_vip"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_store"
+                    android:drawableStart="@drawable/topmenu_icn_store"
+                    android:gravity="center"
+                    android:text="@string/nav_str_store"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_free"
+                    android:drawableStart="@drawable/topmenu_icn_free"
+                    android:gravity="center"
+                    android:text="@string/nav_str_tinggeshiqu"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_free"
+                    android:drawableStart="@drawable/topmenu_icn_free"
+                    android:gravity="center"
+                    android:text="@string/nav_str_friend"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_nearby"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_free"
+                    android:drawableStart="@drawable/topmenu_icn_free"
+                    android:gravity="center"
+                    android:text="@string/nav_str_person_nearby"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_skin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_skin"
+                    android:drawableStart="@drawable/topmenu_icn_skin"
+                    android:gravity="center"
+                    android:text="@string/nav_str_skin"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_tingge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_identify"
+                    android:drawableStart="@drawable/topmenu_icn_identify"
+                    android:gravity="center"
+                    android:text="@string/nav_str_tinggeshiqu"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_time"
+                    android:drawableStart="@drawable/topmenu_icn_time"
+                    android:gravity="center"
+                    android:text="@string/nav_str_timing"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_scan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_time"
+                    android:drawableStart="@drawable/topmenu_icn_time"
+                    android:gravity="center"
+                    android:text="@string/nav_str_scan"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_music_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_time"
+                    android:drawableStart="@drawable/topmenu_icn_time"
+                    android:gravity="center"
+                    android:text="@string/nav_str_music_alarm"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_music_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_time"
+                    android:drawableStart="@drawable/topmenu_icn_time"
+                    android:gravity="center"
+                    android:text="@string/nav_str_driver"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+
+                <com.bilibili.magicasakura.widgets.TintTextView
+                    android:id="@+id/top_item_cloud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/topmenu_icn_time"
+                    android:drawableStart="@drawable/topmenu_icn_time"
+                    android:gravity="center"
+                    android:text="@string/nav_str_cloud"
+                    android:textAppearance="@style/TitleText14"
+                    app:drawableLeftTint="@color/subText" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    <View
+        android:id="@+id/topmenu_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@drawable/divider"
+        android:layout_above="@+id/topmenu_bottom"/>
+    <LinearLayout
+        android:id="@+id/topmenu_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:showDividers="beginning"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/topmenu_icn_night"
+                android:tint="#ff000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_str_nightmod"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/topmenu_icn_set"
+                android:tint="#ff000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_str_setting"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/topmenu_icn_exit"
+                android:tint="#ff000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_str_exit"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

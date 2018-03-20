@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:orientation="horizontal"
+    android:padding="4dp">
+    <ImageView
+        android:id="@+id/sheet_tab_expandable_icn"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:src="@drawable/recommend_icn_arr"
+        android:scaleType="centerInside"
+        android:rotation="90"/>
+    <TextView
+        android:id="@+id/sheet_tab_text"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:textSize="12sp"
+        android:ellipsize="end"/>
+    <ImageView
+        android:padding="2dp"
+        android:id="@+id/sheet_tab_title_set"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:src="@drawable/local_scan_icn_selector"/>
+
+</LinearLayout>

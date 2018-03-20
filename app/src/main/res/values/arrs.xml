@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tabTitles">
+        <item>单曲</item>
+        <item>歌手</item>
+        <item>专辑</item>
+        <item>文件夹</item>
+    </string-array>
+    <string-array name="dis_tab_titles">
+        <item>音乐</item>
+        <item>视频</item>
+        <item>电台</item>
+    </string-array>
+</resources>

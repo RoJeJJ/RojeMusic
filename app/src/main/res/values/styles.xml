@@ -1,0 +1,108 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme.base" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme" parent="AppTheme.base"/>
+
+    <!--toolbar 样式-->
+    <style name="toolbarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:actionBarItemBackground">@drawable/toolbarItemBackground</item>
+        <item name="android:selectableItemBackground">@drawable/toolbarItemBackground</item>
+        <!--<item name="android:titleTextAppearance">@style/Toolbar.Title</item>-->
+        <item name="android:subtitleTextStyle">@style/Toolbar.SubTitle</item>
+    </style>
+
+    <!--toolbar 标题样式-->
+    <style name="Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="TitleText16" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">16.0sp</item>
+    </style>
+    <style name="TitleText18" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">18.0sp</item>
+    </style>
+    <style name="hintText12" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">#bdbdbd</item>
+        <item name="android:textSize">12.0sp</item>
+    </style>
+    <style name="TabText12" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">12.0sp</item>
+    </style>
+    <style name="SubText12" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/subText</item>
+        <item name="android:textSize">12.0sp</item>.
+    </style>
+    <style name="SubText10" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/subText</item>
+        <item name="android:textSize">10.0sp</item>
+    </style>
+    <style name="TitleText14" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">14.0sp</item>
+    </style>
+    <style name="TitleText12" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">12.0sp</item>
+    </style>
+    <style name="DailyText" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/theme_primary_color</item>
+        <item name="android:textSize">22.0sp</item>
+    </style>
+
+    <!--toolbar 副标题样式-->
+    <style name="Toolbar.SubTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">9.0sp</item>
+        <item name="android:textColor">@color/subText</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--底部弹出菜单-->
+    <style name="bottomDialog" parent="Theme.AppCompat.Dialog">
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!--浮在activity上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--边框-->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--无标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--半透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--进出动画-->
+        <item name="android:windowAnimationStyle">@style/bottomDialog.animation</item>
+        <!--点击其他区域退出-->
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+    <!--loading dialog-->
+    <style name="loadingDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
+    <style name="bottomDialog.animation" parent="Animation.AppCompat.Dialog">
+        <item name="android:windowEnterAnimation">@anim/bottom_dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/bottom_dialog_exit</item>
+    </style>
+
+</resources>
