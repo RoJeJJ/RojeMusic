@@ -3,7 +3,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class JsonRootBean {
+public class RecPlaylistRootBean {
     @SerializedName("hasTaste")
     private boolean hasTaste;
     @SerializedName("code")
@@ -11,7 +11,7 @@ public class JsonRootBean {
     @SerializedName("category")
     private int category;
     @SerializedName("result")
-    private List<Result> result;
+    private List<RecPlResult> result;
     public void setHasTaste(boolean hasTaste) {
          this.hasTaste = hasTaste;
      }
@@ -33,10 +33,10 @@ public class JsonRootBean {
          return category;
      }
 
-    public void setResult(List<Result> result) {
+    public void setResult(List<RecPlResult> result) {
          this.result = result;
      }
-     public List<Result> getResult() {
+     public List<RecPlResult> getResult() {
          return result;
      }
 

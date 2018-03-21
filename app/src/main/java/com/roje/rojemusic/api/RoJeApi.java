@@ -63,6 +63,7 @@ public interface RoJeApi {
     /**
      * 独家放送
      */
+    @FormUrlEncoded
     @POST("/weapi/personalized/privatecontent")
-    Observable<ResponseBody> getPrivateContent();
+    Observable<ResponseBody> getPrivateContent(@FieldMap Map<String,String> form);
 }

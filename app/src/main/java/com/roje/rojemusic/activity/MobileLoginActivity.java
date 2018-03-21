@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.roje.rojemusic.R;
-import com.roje.rojemusic.bean.login.JsonRootBean;
+import com.roje.rojemusic.bean.login.LoginRootBean;
 import com.roje.rojemusic.fragment.dialog.LoadingDialogFragment;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
@@ -35,8 +35,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 public class MobileLoginActivity extends BaseActivity {
 
@@ -104,25 +102,20 @@ public class MobileLoginActivity extends BaseActivity {
                     object.addProperty("password", Md5Util.md5(password));
                     object.addProperty("rememberLogin",true);
                     Map<String,String> form = EncryptUtils.encrypt(object.toString());
-                    presenter.login(form, new MyObserver<String>() {
+                    presenter.login(form, new MyObserver<LoginRootBean>(MobileLoginActivity.this) {
                         @Override
-                        protected void next(String s) {
+                        protected void next(LoginRootBean s) {
                             dialog.dismiss();
-                            LogUtil.i(s);
-                            JsonObject jsonObject = new JsonParser().parse(s).getAsJsonObject();
-                            switch (jsonObject.get("code").getAsInt()){
-                                case 501:
-                                case 502:
-                                    Toast.makeText(MobileLoginActivity.this,jsonObject.get("msg").getAsString(),Toast.LENGTH_SHORT).show();
-                                    break;
-                                case 200:
-                                    JsonRootBean rb = new Gson().fromJson(s,JsonRootBean.class);
-                                    SharedPreferencesUtil.setUerId(MobileLoginActivity.this,rb.getProfile().getUserId());
-                                    Intent i = new Intent(MobileLoginActivity.this,MainActivity.class);
-                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(i);
-                                    break;
-                            }
+                            SharedPreferencesUtil.setUerId(MobileLoginActivity.this,s.getProfile().getUserId());
+                            SharedPreferencesUtil.setPrePhoneNumber(MobileLoginActivity.this,name.getText().toString());
+                            Intent i = new Intent(MobileLoginActivity.this,MainActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                        }
+
+                        @Override
+                        protected void error() {
+                            dialog.dismiss();
                         }
                     });
                 }

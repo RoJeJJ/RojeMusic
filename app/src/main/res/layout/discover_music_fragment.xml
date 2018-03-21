@@ -139,69 +139,18 @@
             android:layout_width="match_parent"
             android:layout_height="0.4dp"
             android:background="@drawable/divider"/>
-        <RelativeLayout
-            android:id="@+id/recom_pl_layout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:id="@+id/title_layout_comm_pl"
-                android:paddingTop="24dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <!--<ImageView-->
-                    <!--android:contentDescription="@null"-->
-                    <!--android:layout_width="4dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="@color/theme_primary_color" />-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TitleText16"
-                    android:text="@string/recomm_pl"
-                    android:drawableRight="@drawable/list_icn_arr_right"
-                    android:drawableEnd="@drawable/recommend_icn_arr"
-                    android:drawableLeft="@drawable/red_edge"
-                    android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/red_edge" />
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <android.support.v7.widget.RecyclerView
-                android:layout_below="@+id/title_layout_comm_pl"
                 android:id="@+id/recomm_recy"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:focusable="false">
 
             </android.support.v7.widget.RecyclerView>
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/new_music"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:id="@+id/title_layout_new_music"
-                android:paddingTop="24dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <!--<ImageView-->
-                <!--android:contentDescription="@null"-->
-                <!--android:layout_width="4dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@color/theme_primary_color" />-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TitleText16"
-                    android:text="@string/comm_new_music"
-                    android:drawableRight="@drawable/list_icn_arr_right"
-                    android:drawableEnd="@drawable/recommend_icn_arr"
-                    android:drawableLeft="@drawable/red_edge"
-                    android:drawablePadding="8dp"
-                    android:drawableStart="@drawable/red_edge" />
-            </LinearLayout>
-        </RelativeLayout>
-
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

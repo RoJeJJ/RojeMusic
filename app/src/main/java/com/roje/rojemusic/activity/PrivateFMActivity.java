@@ -43,8 +43,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 public class PrivateFMActivity extends BaseActivity {
     @BindView(R.id.toolbar)
@@ -65,18 +63,7 @@ public class PrivateFMActivity extends BaseActivity {
     private List<Data> fmSongs;
     private boolean in = false;
     private BlurTransformation blurTransformation;
-    private MyObserver<List<Data>> observer = new MyObserver<List<Data>>() {
-        @Override
-        protected void next(List<Data> data) {
-            fmSongs.addAll(data);
-            if (!in && fmSongs.size() > 0) {
-                in = true;
-                Glide.with(PrivateFMActivity.this).load(fmSongs.get(0).getAlbum().getPicUrl()).into((ImageView) ims.getCurrentView());
-                refreshBoard();
-                handler.sendEmptyMessage(0);
-            }
-        }
-    };
+    private MyObserver<List<Data>> observer;
 
     private SimpleTarget<Drawable> sTarget = new SimpleTarget<Drawable>() {
         @Override
@@ -135,11 +122,27 @@ public class PrivateFMActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fm_layout);
         ButterKnife.bind(this);
+        rxInit();
         initToolbar();
         initData();
         initViews();
-        presenter = new PresenterImpl();
         presenter.getPersonalFM(observer);
+    }
+
+    private void rxInit() {
+        presenter = new PresenterImpl();
+        observer = new MyObserver<List<Data>>(this) {
+            @Override
+            protected void next(List<Data> data) {
+                fmSongs.addAll(data);
+                if (!in && fmSongs.size() > 0) {
+                    in = true;
+                    Glide.with(PrivateFMActivity.this).load(fmSongs.get(0).getAlbum().getPicUrl()).into((ImageView) ims.getCurrentView());
+                    refreshBoard();
+                    handler.sendEmptyMessage(0);
+                }
+            }
+        };
     }
 
     private void initData() {

@@ -30,6 +30,7 @@ import com.roje.rojemusic.bean.detail.UserDetailBean;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
+import com.roje.rojemusic.utils.NetWorkUtil;
 import com.roje.rojemusic.utils.SharedPreferencesUtil;
 
 import java.security.MessageDigest;
@@ -52,14 +53,26 @@ public class NavigationDrawerFragment extends BaseFragment {
     @BindView(R.id.level)
     TextView level;
     private Presenter presenter;
+    private MyObserver<UserDetailBean> observer;
     private UserDetailBean detailBean;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new PresenterImpl();
+        rxInit();
     }
 
-
+    private void rxInit() {
+        presenter = new PresenterImpl();
+        observer = new MyObserver<UserDetailBean>(activity) {
+            @Override
+            protected void next(UserDetailBean s) {
+                if (s != null){
+                    detailBean = s;
+                    refresh();
+                }
+            }
+        };
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -132,15 +145,9 @@ public class NavigationDrawerFragment extends BaseFragment {
     }
     private void load(){
         long uid = SharedPreferencesUtil.getUid(activity);
-        if (uid != -1)
-            presenter.userDetail(uid, new MyObserver<UserDetailBean>() {
-                @Override
-                protected void next(UserDetailBean s) {
-                    if (s != null){
-                        detailBean = s;
-                        refresh();
-                    }
-                }
-            });
+        if (uid != -1) {
+            if (!NetWorkUtil.isNetWorkAvailable(activity))
+                presenter.userDetail(uid, observer);
+        }
     }
 }

@@ -60,7 +60,6 @@ public class SplashActivity extends Activity {
                 finish();
             }
         });
-        SharedPreferencesUtil.setUerId(this,76627798);
 //        new Thread(){
 //            @Override
 //            public void run() {

@@ -11,4 +11,10 @@
         <item>视频</item>
         <item>电台</item>
     </string-array>
+    <declare-styleable name="SquareImageView">
+        <attr name="widthOrHeiht">
+            <enum name="height" value="0"/>
+            <enum name="width" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>

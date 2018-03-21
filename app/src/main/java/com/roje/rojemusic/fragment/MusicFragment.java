@@ -87,13 +87,36 @@ public class MusicFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new PresenterImpl();
+        rxInit();
         uid = SharedPreferencesUtil.getUid(activity);
         plListCreat = new ArrayList<>();
         plliistCollect = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                 ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
+    }
+
+    private void rxInit() {
+        presenter = new PresenterImpl();
+        observer = new MyObserver<List<Playlist>>(activity) {
+            @Override
+            protected void next(List<Playlist> list) {
+                if (list != null){
+                    List<Playlist> cr = new ArrayList<>();
+                    List<Playlist> co = new ArrayList<>();
+                    for (Playlist pl:list){
+                        if (pl.getUserId() == uid)
+                            cr.add(pl);
+                        else
+                            co.add(pl);
+                    }
+                    adapter.refresh(createTab,cr);
+                    adapter.refresh(collectTab,co);
+                    if (refreshLayout.isRefreshing())
+                        refreshLayout.setRefreshing(false);
+                }
+            }
+        };
     }
 
     @Override
@@ -114,25 +137,7 @@ public class MusicFragment extends BaseFragment {
         return rootView;
     }
 
-    private MyObserver<List<Playlist>> observer = new MyObserver<List<Playlist>>() {
-        @Override
-        protected void next(List<Playlist> list) {
-            if (list != null){
-                List<Playlist> cr = new ArrayList<>();
-                List<Playlist> co = new ArrayList<>();
-                for (Playlist pl:list){
-                    if (pl.getUserId() == uid)
-                        cr.add(pl);
-                    else
-                        co.add(pl);
-                }
-                adapter.refresh(createTab,cr);
-                adapter.refresh(collectTab,co);
-                if (refreshLayout.isRefreshing())
-                    refreshLayout.setRefreshing(false);
-            }
-        }
-    };
+    private MyObserver<List<Playlist>> observer;
 
     private void initData() {
         itemData = new ArrayList<>();

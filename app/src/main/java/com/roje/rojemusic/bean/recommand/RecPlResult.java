@@ -2,7 +2,7 @@ package com.roje.rojemusic.bean.recommand;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class RecPlResult {
     @SerializedName("id")
     private long id;
     @SerializedName("type")

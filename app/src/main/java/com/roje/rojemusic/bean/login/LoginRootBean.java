@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class JsonRootBean {
+public class LoginRootBean {
     @SerializedName("loginType")
     private int loginType;
     @SerializedName("code")

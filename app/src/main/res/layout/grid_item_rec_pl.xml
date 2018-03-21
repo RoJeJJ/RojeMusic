@@ -2,13 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:SquareImageView="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.roje.rojemusic.ui.view.SquareImageView
+        android:contentDescription="@null"
         android:id="@+id/cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        SquareImageView:widthOrHeiht="width"/>
 
     <TextView
         android:id="@+id/name"
@@ -17,8 +20,7 @@
         android:layout_below="@+id/cover"
         android:ellipsize="end"
         android:lines="2"
-        android:textAppearance="@style/TitleText12"
-        android:visibility="invisible" />
+        android:textAppearance="@style/TitleText12" />
 
     <TextView
         android:id="@+id/play_count"

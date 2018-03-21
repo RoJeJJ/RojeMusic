@@ -20,20 +20,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.JsonObject;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.activity.PrivateFMActivity;
-import com.roje.rojemusic.adapter.CommPlayListAdapter;
+import com.roje.rojemusic.adapter.RecommendPlAdapter;
 import com.roje.rojemusic.bean.Banner;
-import com.roje.rojemusic.bean.recommand.Result;
+import com.roje.rojemusic.bean.privatecontent.PriContResult;
+import com.roje.rojemusic.bean.recommand.RecPlResult;
 import com.roje.rojemusic.fragment.BaseFragment;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
 import com.roje.rojemusic.utils.DisplayUtil;
+import com.roje.rojemusic.utils.NetWorkUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,9 +45,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 
 public class DiscoverMusicFragment extends BaseFragment {
@@ -65,54 +65,31 @@ public class DiscoverMusicFragment extends BaseFragment {
     RecyclerView pl_recy;
     private List<ImageView> dots;
     private Presenter presenter;
-    private List<Result> plBeans;
-    private CommPlayListAdapter plAdapter;
+    private List<RecPlResult> plBeans;
+    private RecommendPlAdapter plAdapter;
     private LoopImageAdapter adapter;
+    private MyObserver<List<PriContResult>> pcObserver;
+    private MyObserver<List<Banner>> banObserver;
+    private MyObserver<List<RecPlResult>> personalizedPlaylistObserver;
+    private MyObserver<List<PriContResult>> priContentObserver;
     public DiscoverMusicFragment(){
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        rxInit();
         initData();
     }
 
-    public static DiscoverMusicFragment newInstance(){
-        return new DiscoverMusicFragment();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.discover_music_fragment,container,false);
-        ButterKnife.bind(this,view);
-        initData();
-        initView();
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        load();
-    }
-
-    private void load() {
-        JsonObject object = new JsonObject();
-        object.addProperty("limit",6);
-        object.addProperty("offset",0);
-        object.addProperty("total",true);
-        object.addProperty("n",1000);
-        presenter.getRecommendRes(object,new MyObserver<List<Result>>() {
+    private void rxInit() {
+        presenter = new PresenterImpl();
+        pcObserver = new MyObserver<List<PriContResult>>(activity) {
             @Override
-            protected void next(List<Result> results) {
-                if (results != null){
-                    plBeans.clear();
-                    plBeans.addAll(results);
-                    plAdapter.notifyDataSetChanged();
-                }
+            protected void next(List<PriContResult> s) {
             }
-        });
-        presenter.getBanners(new MyObserver<List<Banner>>() {
+        };
+        banObserver = new MyObserver<List<Banner>>(activity) {
             @Override
             protected void next(List<Banner> banners) {
                 List<View> views = new ArrayList<>();
@@ -158,20 +135,63 @@ public class DiscoverMusicFragment extends BaseFragment {
                 }
                 adapter.setBanner(views);
             }
-        });
-        presenter.getPrivateContent(new Consumer<String>() {
+        };
+        personalizedPlaylistObserver = new MyObserver<List<RecPlResult>>(activity) {
             @Override
-            public void accept(String s) throws Exception {
+            protected void next(List<RecPlResult> priContResults) {
+                if (priContResults != null){
+                    plBeans.clear();
+                    plBeans.addAll(priContResults);
+                    plAdapter.notifyDataSetChanged();
+                }
+            }
+        };
+        priContentObserver = new MyObserver<List<PriContResult>>(activity) {
+            @Override
+            protected void next(List<PriContResult> results) {
 
             }
-        });
+        };
+    }
+
+    public static DiscoverMusicFragment newInstance(){
+        return new DiscoverMusicFragment();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = LayoutInflater.from(activity).inflate(R.layout.discover_music_fragment,container,false);
+        ButterKnife.bind(this,view);
+        initData();
+        initView();
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        load();
+    }
+
+    private void load() {
+        if (NetWorkUtil.isNetWorkAvailable(activity)){
+            JsonObject object = new JsonObject();
+            object.addProperty("limit",6);
+            object.addProperty("offset",0);
+            object.addProperty("total",true);
+            object.addProperty("n",1000);
+            presenter.getRecommendRes(object,personalizedPlaylistObserver);
+            presenter.getBanners(banObserver);
+            presenter.getPrivateContent(pcObserver);
+        }else
+            Toast.makeText(activity,"请检查网络后重试",Toast.LENGTH_SHORT).show();
     }
 
     public void initData(){
         dots = new ArrayList<>();
         plBeans = new ArrayList<>();
-        plAdapter = new CommPlayListAdapter(activity,plBeans);
-        presenter = new PresenterImpl();
+        plAdapter = new RecommendPlAdapter(activity,plBeans);
 
 //        int[] drawableRes = new int[]{R.drawable.first,R.drawable.second,R.drawable.third,R.drawable.fourth,R.drawable.five,R.drawable.six,R.drawable.seven};
 //        for (int drawableRe : drawableRes) {
@@ -197,46 +217,32 @@ public class DiscoverMusicFragment extends BaseFragment {
             }
         });
 
-        pl_recy.setLayoutManager(new GridLayoutManager(activity,3));
+        GridLayoutManager layoutManager = new GridLayoutManager(activity,3);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0)
+                    return 3;
+                return 1;
+            }
+        });
+        pl_recy.setLayoutManager(layoutManager);
         pl_recy.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int position = parent.getChildAdapterPosition(view);
-                if (position % 3 == 0)
-                    outRect.set(0,DisplayUtil.dp2px(activity,16),2,0);
-                if (position % 3 == 2)
-                    outRect.set(2,DisplayUtil.dp2px(activity,16),0,0);
-                else
-                    outRect.set(2,DisplayUtil.dp2px(activity,16),2,0);
+                if (position - 1 >= 0) {
+                    if (position % 3 == 0)
+                        outRect.set(0, DisplayUtil.dp2px(activity, 8), 2, 0);
+                    if (position % 3 == 2)
+                        outRect.set(2, DisplayUtil.dp2px(activity, 8), 0, 0);
+                    else
+                        outRect.set(2, DisplayUtil.dp2px(activity, 8), 2, 0);
+                }
             }
         });
         pl_recy.setAdapter(plAdapter);
         pl_recy.setFocusable(false);
-//        presenter.getPlayList("全部","hot",0,6,new Observer<List<PlayList>>() {
-//            private Disposable d;
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//                this.d = d;
-//            }
-//
-//            @Override
-//            public void onNext(List<PlayList> playLists) {
-//                plBeans.clear();
-//                plBeans.addAll(playLists);
-//                plAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                e.printStackTrace();
-//                d.dispose();
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//                d.dispose();
-//            }
-//        });
     }
 
     private String today(){
