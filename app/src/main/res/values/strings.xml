@@ -35,6 +35,7 @@
     <string name="str_upbill">排行榜</string>
     <string name="str_pl">歌单</string>
     <string name="recomm_pl">推荐歌单</string>
+    <string name="recomm_pc">独家放送</string>
     <string name="comm_new_music">最新音乐</string>
     <string name="sheet_name">歌单:%1$s</string>
     <string name="download">下载</string>

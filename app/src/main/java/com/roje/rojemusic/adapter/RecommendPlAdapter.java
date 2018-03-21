@@ -25,19 +25,27 @@ import butterknife.ButterKnife;
 public class RecommendPlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<RecPlResult> listBeans;
-    public RecommendPlAdapter(Context context, List<RecPlResult> beans){
+
+    public RecommendPlAdapter(Context context, List<RecPlResult> beans) {
         this.mContext = context;
         this.listBeans = beans;
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == 0){
-            View view = LayoutInflater.from(mContext).inflate(R.layout.rec_item_head,parent,false);
+        if (viewType == 0) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.rec_item_head, parent, false);
             return new HeadHolder(view);
-        }else {
+        } else {
             View view = LayoutInflater.from(mContext).inflate(R.layout.grid_item_rec_pl, parent, false);
             return new ItemHolder(view);
         }
+    }
+
+    public void setData(List<RecPlResult> list) {
+        listBeans.clear();
+        listBeans.addAll(list);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -50,19 +58,19 @@ public class RecommendPlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof HeadHolder){
+        if (holder instanceof HeadHolder) {
             HeadHolder h = (HeadHolder) holder;
             h.title.setText(R.string.recomm_pl);
-        }else {
+        } else {
             RecPlResult bean = listBeans.get(position - 1);
             ItemHolder h = (ItemHolder) holder;
             Glide.with(mContext).load(bean.getPicUrl())
-                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
                     .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_150))
                     .into(h.cover);
             h.name.setText(bean.getName());
             if (bean.getPlayCount() >= 10000)
-                h.count.setText(mContext.getString(R.string.play_count,(int)bean.getPlayCount()/10000));
+                h.count.setText(mContext.getString(R.string.play_count, (int) bean.getPlayCount() / 10000));
             else
                 h.count.setText(String.valueOf(bean.getPlayCount()));
         }
@@ -70,27 +78,31 @@ public class RecommendPlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return listBeans.size()+1;
+        return listBeans.size() + 1;
     }
-    class ItemHolder extends RecyclerView.ViewHolder{
+
+    class ItemHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.cover)
         ImageView cover;
         @BindView(R.id.name)
         TextView name;
         @BindView(R.id.play_count)
-         TextView count;
+        TextView count;
+
         ItemHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
-    class HeadHolder extends RecyclerView.ViewHolder{
+
+    class HeadHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.title)
         TextView title;
+
         HeadHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

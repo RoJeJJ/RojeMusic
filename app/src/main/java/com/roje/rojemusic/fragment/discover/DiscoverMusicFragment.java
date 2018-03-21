@@ -27,6 +27,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.JsonObject;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.activity.PrivateFMActivity;
+import com.roje.rojemusic.adapter.PrivContentAdapter;
 import com.roje.rojemusic.adapter.RecommendPlAdapter;
 import com.roje.rojemusic.bean.Banner;
 import com.roje.rojemusic.bean.privatecontent.PriContResult;
@@ -63,15 +64,18 @@ public class DiscoverMusicFragment extends BaseFragment {
     ImageView iv_upbill;
     @BindView(R.id.recomm_recy)
     RecyclerView pl_recy;
+    @BindView(R.id.pri_cont_recy)
+    RecyclerView pri_cont_recy;
     private List<ImageView> dots;
     private Presenter presenter;
     private List<RecPlResult> plBeans;
+    private List<PriContResult> pcResults;
     private RecommendPlAdapter plAdapter;
     private LoopImageAdapter adapter;
+    private PrivContentAdapter priv_cont_adapter;
     private MyObserver<List<PriContResult>> pcObserver;
     private MyObserver<List<Banner>> banObserver;
     private MyObserver<List<RecPlResult>> personalizedPlaylistObserver;
-    private MyObserver<List<PriContResult>> priContentObserver;
     public DiscoverMusicFragment(){
     }
 
@@ -138,18 +142,16 @@ public class DiscoverMusicFragment extends BaseFragment {
         };
         personalizedPlaylistObserver = new MyObserver<List<RecPlResult>>(activity) {
             @Override
-            protected void next(List<RecPlResult> priContResults) {
-                if (priContResults != null){
-                    plBeans.clear();
-                    plBeans.addAll(priContResults);
-                    plAdapter.notifyDataSetChanged();
-                }
+            protected void next(List<RecPlResult> results) {
+                plBeans = results;
+                plAdapter.setData(results);
             }
         };
-        priContentObserver = new MyObserver<List<PriContResult>>(activity) {
+        pcObserver = new MyObserver<List<PriContResult>>(activity) {
             @Override
             protected void next(List<PriContResult> results) {
-
+                pcResults = results;
+                priv_cont_adapter.setData(results);
             }
         };
     }
@@ -191,16 +193,9 @@ public class DiscoverMusicFragment extends BaseFragment {
     public void initData(){
         dots = new ArrayList<>();
         plBeans = new ArrayList<>();
+        pcResults = new ArrayList<>();
         plAdapter = new RecommendPlAdapter(activity,plBeans);
-
-//        int[] drawableRes = new int[]{R.drawable.first,R.drawable.second,R.drawable.third,R.drawable.fourth,R.drawable.five,R.drawable.six,R.drawable.seven};
-//        for (int drawableRe : drawableRes) {
-//            ResizeImageView imageView = new ResizeImageView(activity);
-//            imageView.setImageResource(drawableRe);
-//            views.add(imageView);
-//
-//        }
-
+        priv_cont_adapter = new PrivContentAdapter(activity,pcResults);
     }
 
     private void initView() {
@@ -217,7 +212,17 @@ public class DiscoverMusicFragment extends BaseFragment {
             }
         });
 
-        GridLayoutManager layoutManager = new GridLayoutManager(activity,3);
+        GridLayoutManager layoutManager = new GridLayoutManager(activity,3){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+        };
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -231,18 +236,60 @@ public class DiscoverMusicFragment extends BaseFragment {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int position = parent.getChildAdapterPosition(view);
-                if (position - 1 >= 0) {
+                position -= 1;
+                if (position >= 0) {
                     if (position % 3 == 0)
-                        outRect.set(0, DisplayUtil.dp2px(activity, 8), 2, 0);
+                        outRect.set(0, DisplayUtil.dp2px(activity, 8), 0, 0);
                     if (position % 3 == 2)
-                        outRect.set(2, DisplayUtil.dp2px(activity, 8), 0, 0);
+                        outRect.set(2, DisplayUtil.dp2px(activity, 8),0 , 0);
                     else
-                        outRect.set(2, DisplayUtil.dp2px(activity, 8), 2, 0);
+                        outRect.set(2, DisplayUtil.dp2px(activity, 8), 0, 0);
                 }
             }
         });
         pl_recy.setAdapter(plAdapter);
         pl_recy.setFocusable(false);
+
+        layoutManager = new GridLayoutManager(activity,2){
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0)
+                    return 2;
+                else if (position == pcResults.size())
+                    return 2;
+                return 1;
+            }
+        });
+        pri_cont_recy.setLayoutManager(layoutManager);
+        pri_cont_recy.setAdapter(priv_cont_adapter);
+        pri_cont_recy.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                int position = parent.getChildAdapterPosition(view);
+                position -= 1;
+                if (position >= 0 && position < pcResults.size() - 1){
+                    if (position == pcResults.size() - 1)
+                        outRect.set(0,DisplayUtil.dp2px(activity, 8),0,0);
+                    else {
+                        if (position % 2 == 1)
+                            outRect.set(2, DisplayUtil.dp2px(activity, 8), 0, 0);
+                        else
+                            outRect.set(0, DisplayUtil.dp2px(activity, 8), 0, 0);
+                    }
+                }
+            }
+        });
     }
 
     private String today(){
