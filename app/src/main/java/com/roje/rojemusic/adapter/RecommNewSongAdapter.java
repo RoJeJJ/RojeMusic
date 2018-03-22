@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
+import com.roje.rojemusic.utils.DisplayUtil;
 
 import java.util.List;
 

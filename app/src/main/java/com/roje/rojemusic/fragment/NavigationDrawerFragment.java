@@ -30,6 +30,7 @@ import com.roje.rojemusic.bean.detail.UserDetailBean;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
+import com.roje.rojemusic.utils.LogUtil;
 import com.roje.rojemusic.utils.NetWorkUtil;
 import com.roje.rojemusic.utils.SharedPreferencesUtil;
 
@@ -66,10 +67,8 @@ public class NavigationDrawerFragment extends BaseFragment {
         observer = new MyObserver<UserDetailBean>(activity) {
             @Override
             protected void next(UserDetailBean s) {
-                if (s != null){
                     detailBean = s;
                     refresh();
-                }
             }
         };
     }
@@ -146,8 +145,9 @@ public class NavigationDrawerFragment extends BaseFragment {
     private void load(){
         long uid = SharedPreferencesUtil.getUid(activity);
         if (uid != -1) {
-            if (!NetWorkUtil.isNetWorkAvailable(activity))
+            if (NetWorkUtil.isNetWorkAvailable(activity)) {
                 presenter.userDetail(uid, observer);
+            }
         }
     }
 }

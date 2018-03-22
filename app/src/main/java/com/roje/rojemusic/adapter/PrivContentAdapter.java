@@ -14,7 +14,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.bean.privatecontent.PriContResult;
-import com.roje.rojemusic.utils.LogUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +27,7 @@ public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<PriContResult> data;
     private String title;
 
-    public PrivContentAdapter(Context context, List<PriContResult> list,int titleRes) {
+    public PrivContentAdapter(Context context, List<PriContResult> list, int titleRes) {
         this.mContext = context;
         this.data = list;
         this.title = context.getString(R.string.recomm_pc);
@@ -52,13 +51,18 @@ public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             h.title.setText(R.string.recomm_pc);
         } else if (holder instanceof ItemHolder) {
             PriContResult bean = data.get(position - 1);
-            LogUtil.i("width-height","width:"+bean.getWidth()+",height:"+bean.getHeight());
             ItemHolder h = (ItemHolder) holder;
             h.name.setText(bean.getName());
-            Glide.with(mContext).load(bean.getSPicUrl())
-                    .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
-                    .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
-                    .into(h.cover);
+            if (position == getItemCount() - 1)
+                Glide.with(mContext).load(bean.getPicUrl())
+                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
+                        .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
+                        .into(h.cover);
+            else
+                Glide.with(mContext).load(bean.getSPicUrl())
+                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
+                        .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
+                        .into(h.cover);
         }
     }
 
@@ -101,6 +105,7 @@ public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         ImageView cover;
         @BindView(R.id.name)
         TextView name;
+
         ItemHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

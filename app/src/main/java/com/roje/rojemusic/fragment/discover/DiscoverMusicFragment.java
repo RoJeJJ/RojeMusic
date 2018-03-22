@@ -293,13 +293,15 @@ public class DiscoverMusicFragment extends BaseFragment {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int position = parent.getChildAdapterPosition(view);
-                if (position == 0 || position == pcResults.size())
-                    outRect.set(0,DisplayUtil.dp2px(activity, 8),0,0);
                 position -= 1;
-                if (position % 2 == 0)
-                    outRect.set(0, DisplayUtil.dp2px(activity, 8), 0, 0);
-                else if (position % 2 == 1)
-                    outRect.set(2, DisplayUtil.dp2px(activity, 8), 0, 0);
+                if (position == pcResults.size() - 1)
+                    outRect.set(0,DisplayUtil.dp2px(activity, 8),0,0);
+                else {
+                    if (position % 2 == 0)
+                        outRect.set(0, DisplayUtil.dp2px(activity, 8), 0, 0);
+                    else if (position % 2 == 1)
+                        outRect.set(2, DisplayUtil.dp2px(activity, 8), 0, 0);
+                }
             }
         });
         layoutManager = new GridLayoutManager(activity,3){

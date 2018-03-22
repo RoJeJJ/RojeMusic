@@ -23,6 +23,7 @@ import com.roje.rojemusic.present.MyException;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.utils.EncryptUtils;
+import com.roje.rojemusic.utils.LogUtil;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -146,6 +147,7 @@ public class PresenterImpl implements Presenter{
                     @Override
                     public UserDetailBean apply(ResponseBody responseBody) throws Exception {
                         String s = responseBody.string();
+                        LogUtil.i(s);
                         JsonObject o = new JsonParser().parse(s).getAsJsonObject();
                         if (o.get("code").getAsInt() == 200)
                             return new Gson().fromJson(s,UserDetailBean.class);

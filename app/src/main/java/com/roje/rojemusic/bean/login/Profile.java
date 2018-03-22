@@ -13,7 +13,7 @@ public class Profile {
     @SerializedName("gender")
     private int gender;
     @SerializedName("birthday")
-    private int birthday;
+    private long birthday;
     @SerializedName("city")
     private long city;
     @SerializedName("mutual")
@@ -88,10 +88,10 @@ public class Profile {
          return gender;
      }
 
-    public void setBirthday(int birthday) {
+    public void setBirthday(long birthday) {
          this.birthday = birthday;
      }
-     public int getBirthday() {
+     public long getBirthday() {
          return birthday;
      }
 
