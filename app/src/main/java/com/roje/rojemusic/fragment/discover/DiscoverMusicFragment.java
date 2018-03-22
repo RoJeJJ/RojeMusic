@@ -12,7 +12,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,10 @@ import com.google.gson.JsonObject;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.activity.PrivateFMActivity;
 import com.roje.rojemusic.adapter.PrivContentAdapter;
+import com.roje.rojemusic.adapter.RecommNewSongAdapter;
 import com.roje.rojemusic.adapter.RecommendPlAdapter;
 import com.roje.rojemusic.bean.Banner;
+import com.roje.rojemusic.bean.newsong.NewSongResult;
 import com.roje.rojemusic.bean.privatecontent.PriContResult;
 import com.roje.rojemusic.bean.recommand.RecPlResult;
 import com.roje.rojemusic.fragment.BaseFragment;
@@ -66,16 +67,21 @@ public class DiscoverMusicFragment extends BaseFragment {
     RecyclerView pl_recy;
     @BindView(R.id.pri_cont_recy)
     RecyclerView pri_cont_recy;
+    @BindView(R.id.newsong_recy)
+    RecyclerView newsong_recy;
     private List<ImageView> dots;
     private Presenter presenter;
     private List<RecPlResult> plBeans;
     private List<PriContResult> pcResults;
+    private List<NewSongResult> newSongResults;
     private RecommendPlAdapter plAdapter;
     private LoopImageAdapter adapter;
     private PrivContentAdapter priv_cont_adapter;
+    private RecommNewSongAdapter newSongAdapter;
     private MyObserver<List<PriContResult>> pcObserver;
     private MyObserver<List<Banner>> banObserver;
     private MyObserver<List<RecPlResult>> personalizedPlaylistObserver;
+    private MyObserver<List<NewSongResult>> newSongObserver;
     public DiscoverMusicFragment(){
     }
 
@@ -154,6 +160,13 @@ public class DiscoverMusicFragment extends BaseFragment {
                 priv_cont_adapter.setData(results);
             }
         };
+        newSongObserver = new MyObserver<List<NewSongResult>>(activity) {
+            @Override
+            protected void next(List<NewSongResult> list) {
+                newSongResults = list;
+                newSongAdapter.setData(list);
+            }
+        };
     }
 
     public static DiscoverMusicFragment newInstance(){
@@ -186,6 +199,7 @@ public class DiscoverMusicFragment extends BaseFragment {
             presenter.getRecommendRes(object,personalizedPlaylistObserver);
             presenter.getBanners(banObserver);
             presenter.getPrivateContent(pcObserver);
+            presenter.newSong(newSongObserver);
         }else
             Toast.makeText(activity,"请检查网络后重试",Toast.LENGTH_SHORT).show();
     }
@@ -194,8 +208,10 @@ public class DiscoverMusicFragment extends BaseFragment {
         dots = new ArrayList<>();
         plBeans = new ArrayList<>();
         pcResults = new ArrayList<>();
-        plAdapter = new RecommendPlAdapter(activity,plBeans);
-        priv_cont_adapter = new PrivContentAdapter(activity,pcResults);
+        newSongResults = new ArrayList<>();
+        plAdapter = new RecommendPlAdapter(activity,plBeans,R.string.recomm_pl);
+        priv_cont_adapter = new PrivContentAdapter(activity,pcResults,R.string.recomm_pc);
+        newSongAdapter = new RecommNewSongAdapter(activity,newSongResults,R.string.recomm_newsong);
     }
 
     private void initView() {
@@ -277,17 +293,50 @@ public class DiscoverMusicFragment extends BaseFragment {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int position = parent.getChildAdapterPosition(view);
+                if (position == 0 || position == pcResults.size())
+                    outRect.set(0,DisplayUtil.dp2px(activity, 8),0,0);
                 position -= 1;
-                if (position >= 0 && position < pcResults.size() - 1){
-                    if (position == pcResults.size() - 1)
-                        outRect.set(0,DisplayUtil.dp2px(activity, 8),0,0);
-                    else {
-                        if (position % 2 == 1)
-                            outRect.set(2, DisplayUtil.dp2px(activity, 8), 0, 0);
-                        else
-                            outRect.set(0, DisplayUtil.dp2px(activity, 8), 0, 0);
-                    }
-                }
+                if (position % 2 == 0)
+                    outRect.set(0, DisplayUtil.dp2px(activity, 8), 0, 0);
+                else if (position % 2 == 1)
+                    outRect.set(2, DisplayUtil.dp2px(activity, 8), 0, 0);
+            }
+        });
+        layoutManager = new GridLayoutManager(activity,3){
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0)
+                    return 3;
+                return 1;
+            }
+        });
+        newsong_recy.setLayoutManager(layoutManager);
+        newsong_recy.setAdapter(newSongAdapter);
+        newsong_recy.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                int position = parent.getChildAdapterPosition(view);
+                position -= 1;
+                if (position >= 0) {
+                    if (position % 3 == 0)
+                        outRect.set(0, DisplayUtil.dp2px(activity, 8), 0, 0);
+                    if (position % 3 == 2)
+                        outRect.set(2, DisplayUtil.dp2px(activity, 8),0 , 0);
+                    else
+                        outRect.set(2, DisplayUtil.dp2px(activity, 8), 0, 0);
+                }else
+                    outRect.set(0,0,0,0);
             }
         });
     }
@@ -377,14 +426,6 @@ public class DiscoverMusicFragment extends BaseFragment {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//            if (positionOffset == 0 && mPreviousOffset == 0){
-//                if (position == 0)
-//                    vp.setCurrentItem(views.size() - 2,false);
-//                else if (position == views.size() - 1)
-//                    vp.setCurrentItem(1,false);
-//                mPreviousOffset = positionOffset;
-//
-//            }
         }
 
         @Override
@@ -393,7 +434,6 @@ public class DiscoverMusicFragment extends BaseFragment {
 //            params.topMargin = view.getViewHeight() - DisplayUtil.dp2px(activity,16);
 //            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
 //            llDots.setLayoutParams(params);
-            Log.i("dot","onPageSelected");
             if (vp.getCurrentItem() == 0){
                 for (int i=0;i<dots.size();i++){
                     if (i == dots.size() - 1){

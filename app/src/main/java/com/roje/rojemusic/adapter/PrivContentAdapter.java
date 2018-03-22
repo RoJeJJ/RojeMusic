@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.bean.privatecontent.PriContResult;
+import com.roje.rojemusic.utils.LogUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,10 +26,12 @@ import butterknife.ButterKnife;
 public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<PriContResult> data;
+    private String title;
 
-    public PrivContentAdapter(Context context, List<PriContResult> list) {
+    public PrivContentAdapter(Context context, List<PriContResult> list,int titleRes) {
         this.mContext = context;
         this.data = list;
+        this.title = context.getString(R.string.recomm_pc);
     }
 
     @Override
@@ -49,6 +52,7 @@ public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             h.title.setText(R.string.recomm_pc);
         } else if (holder instanceof ItemHolder) {
             PriContResult bean = data.get(position - 1);
+            LogUtil.i("width-height","width:"+bean.getWidth()+",height:"+bean.getHeight());
             ItemHolder h = (ItemHolder) holder;
             h.name.setText(bean.getName());
             Glide.with(mContext).load(bean.getSPicUrl())
@@ -56,6 +60,11 @@ public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
                     .into(h.cover);
         }
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+        notifyItemChanged(0);
     }
 
     public void setData(List<PriContResult> list) {

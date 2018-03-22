@@ -28,7 +28,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.async.BlurTransformation;
 import com.roje.rojemusic.bean.personfm.Artist;
-import com.roje.rojemusic.bean.personfm.Data;
+import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
@@ -60,10 +60,10 @@ public class PrivateFMActivity extends BaseActivity {
     @BindView(R.id.iv_bg)
     ImageView iv_bg;
     private Presenter presenter;
-    private List<Data> fmSongs;
+    private List<Song> fmSongs;
     private boolean in = false;
     private BlurTransformation blurTransformation;
-    private MyObserver<List<Data>> observer;
+    private MyObserver<List<Song>> observer;
 
     private SimpleTarget<Drawable> sTarget = new SimpleTarget<Drawable>() {
         @Override
@@ -88,7 +88,7 @@ public class PrivateFMActivity extends BaseActivity {
 
     private void refreshBoard(){
         if (fmSongs.size() > 0) {
-            Data song = fmSongs.get(0);
+            Song song = fmSongs.get(0);
             title.setText(song.getName());
             Iterator<Artist> iterator = song.getArtists().iterator();
             StringBuilder sb = new StringBuilder();
@@ -108,7 +108,7 @@ public class PrivateFMActivity extends BaseActivity {
 //            Glide.with(PrivateFMActivity.this).clear(sTarget);
         }
         if (fmSongs.size() > 1){
-            Data song = fmSongs.get(1);
+            Song song = fmSongs.get(1);
             Glide.with(PrivateFMActivity.this).load(song.getAlbum().getPicUrl())
                     .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_play_fm))
                     .apply(RequestOptions.skipMemoryCacheOf(true))
@@ -131,9 +131,9 @@ public class PrivateFMActivity extends BaseActivity {
 
     private void rxInit() {
         presenter = new PresenterImpl();
-        observer = new MyObserver<List<Data>>(this) {
+        observer = new MyObserver<List<Song>>(this) {
             @Override
-            protected void next(List<Data> data) {
+            protected void next(List<Song> data) {
                 fmSongs.addAll(data);
                 if (!in && fmSongs.size() > 0) {
                     in = true;
@@ -157,7 +157,7 @@ public class PrivateFMActivity extends BaseActivity {
            switch (message.what){
                case 0:
                    if (fmSongs.size() > 0) {
-                       Data song = fmSongs.get(0);
+                       Song song = fmSongs.get(0);
                        Glide.with(PrivateFMActivity.this).load(song.getAlbum().getBlurPicUrl())
                                .apply(RequestOptions.bitmapTransform(blurTransformation))
                                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))

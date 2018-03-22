@@ -12,8 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.roje.rojemusic.R;
-import com.roje.rojemusic.bean.recommand.RecPlResult;
-
+import com.roje.rojemusic.bean.newsong.NewSongResult;
 
 import java.util.List;
 
@@ -21,12 +20,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class RecommendPlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecommNewSongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<RecPlResult> listBeans;
+    private List<NewSongResult> listBeans;
     private String title;
 
-    public RecommendPlAdapter(Context context, List<RecPlResult> beans,int titleRes) {
+    public RecommNewSongAdapter(Context context, List<NewSongResult> beans, int titleRes) {
         this.mContext = context;
         this.listBeans = beans;
         this.title = context.getString(titleRes);
@@ -48,7 +47,7 @@ public class RecommendPlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyItemChanged(0);
     }
 
-    public void setData(List<RecPlResult> list) {
+    public void setData(List<NewSongResult> list) {
         listBeans.clear();
         listBeans.addAll(list);
         notifyDataSetChanged();
@@ -68,17 +67,14 @@ public class RecommendPlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             HeadHolder h = (HeadHolder) holder;
             h.title.setText(title);
         } else {
-            RecPlResult bean = listBeans.get(position - 1);
+            NewSongResult bean = listBeans.get(position - 1);
             ItemHolder h = (ItemHolder) holder;
-            Glide.with(mContext).load(bean.getPicUrl())
+            Glide.with(mContext).load(bean.getSong().getAlbum().getPicUrl())
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
                     .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_150))
                     .into(h.cover);
             h.name.setText(bean.getName());
-            if (bean.getPlayCount() >= 10000)
-                h.count.setText(mContext.getString(R.string.play_count, (int) bean.getPlayCount() / 10000));
-            else
-                h.count.setText(String.valueOf(bean.getPlayCount()));
+            h.count.setVisibility(View.GONE);
         }
     }
 

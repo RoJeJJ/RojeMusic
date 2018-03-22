@@ -66,4 +66,11 @@ public interface RoJeApi {
     @FormUrlEncoded
     @POST("/weapi/personalized/privatecontent")
     Observable<ResponseBody> getPrivateContent(@FieldMap Map<String,String> form);
+
+    /**
+     * 最新音乐
+     */
+    @FormUrlEncoded
+    @POST("/weapi/personalized/newsong")
+    Observable<ResponseBody> newSong(@FieldMap Map<String,String> form);
 }

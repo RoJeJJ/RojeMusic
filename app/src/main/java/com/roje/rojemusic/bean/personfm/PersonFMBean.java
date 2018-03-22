@@ -8,7 +8,7 @@ public class PersonFMBean {
     @SerializedName("popAdjust")
     private boolean popAdjust;
     @SerializedName("data")
-    private List<Data> data;
+    private List<Song> data;
     @SerializedName("code")
     private int code;
 
@@ -20,11 +20,11 @@ public class PersonFMBean {
         return popAdjust;
     }
 
-    public void setData(List<Data> data) {
+    public void setData(List<Song> data) {
         this.data = data;
     }
 
-    public List<Data> getData() {
+    public List<Song> getData() {
         return data;
     }
 

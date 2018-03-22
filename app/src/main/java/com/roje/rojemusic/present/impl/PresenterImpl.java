@@ -1,8 +1,6 @@
 package com.roje.rojemusic.present.impl;
 
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -10,7 +8,9 @@ import com.roje.rojemusic.api.RoJeRequest;
 import com.roje.rojemusic.bean.Banner;
 import com.roje.rojemusic.bean.detail.UserDetailBean;
 import com.roje.rojemusic.bean.login.LoginRootBean;
-import com.roje.rojemusic.bean.personfm.Data;
+import com.roje.rojemusic.bean.newsong.NewSongRespBean;
+import com.roje.rojemusic.bean.newsong.NewSongResult;
+import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.bean.personfm.PersonFMBean;
 import com.roje.rojemusic.bean.playlist.Playlist;
 import com.roje.rojemusic.bean.playlist.PlaylistRootBean;
@@ -23,7 +23,6 @@ import com.roje.rojemusic.present.MyException;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.utils.EncryptUtils;
-import com.roje.rojemusic.utils.LogUtil;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -62,14 +61,14 @@ public class PresenterImpl implements Presenter{
                 .subscribe(observer);
     }
 
-    public void getPersonalFM(MyObserver<List<Data>> observer) {
+    public void getPersonalFM(MyObserver<List<Song>> observer) {
         JsonObject object = new JsonObject();
         object.addProperty("csrf_token","");
         Map<String,String> form = EncryptUtils.encrypt(object.toString());
         RoJeRequest.getRoJeApi().getPersonalFM(form)
-                .map(new Function<ResponseBody, List<Data>>() {
+                .map(new Function<ResponseBody, List<Song>>() {
                     @Override
-                    public List<Data> apply(ResponseBody responseBody) throws Exception {
+                    public List<Song> apply(ResponseBody responseBody) throws Exception {
                         String s = responseBody.string();
                         JsonObject o = new JsonParser().parse(s).getAsJsonObject();
                         if (o.get("code").getAsInt() == 200){
@@ -170,6 +169,29 @@ public class PresenterImpl implements Presenter{
                         JsonObject o = new JsonParser().parse(s).getAsJsonObject();
                         if (o.get("code").getAsInt() == 200) {
                             PriContentRootBean bean = new Gson().fromJson(s, PriContentRootBean.class);
+                            return bean.getResult();
+                        }
+                        throw new MyException(o.get("code").getAsInt(),o.get("msg").getAsString());
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void newSong(Observer<List<NewSongResult>> observer) {
+        JsonObject object = new JsonObject();
+        object.addProperty("type","recommend");
+        Map<String,String> form = EncryptUtils.encrypt(object.toString());
+        RoJeRequest.getRoJeApi().newSong(form)
+                .map(new Function<ResponseBody, List<NewSongResult>>() {
+                    @Override
+                    public List<NewSongResult> apply(ResponseBody responseBody) throws Exception {
+                        String s = responseBody.string();
+                        JsonObject o = new JsonParser().parse(s).getAsJsonObject();
+                        if (o.get("code").getAsInt() == 200){
+                            NewSongRespBean bean = new Gson().fromJson(s,NewSongRespBean.class);
                             return bean.getResult();
                         }
                         throw new MyException(o.get("code").getAsInt(),o.get("msg").getAsString());
