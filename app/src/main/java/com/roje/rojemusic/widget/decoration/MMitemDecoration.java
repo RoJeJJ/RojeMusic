@@ -1,4 +1,4 @@
-package com.roje.rojemusic.ui.decoration;
+package com.roje.rojemusic.widget.decoration;
 
 
 import android.content.Context;

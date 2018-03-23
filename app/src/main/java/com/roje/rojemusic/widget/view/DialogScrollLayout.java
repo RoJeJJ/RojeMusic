@@ -1,4 +1,4 @@
-package com.roje.rojemusic.ui.view;
+package com.roje.rojemusic.widget.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

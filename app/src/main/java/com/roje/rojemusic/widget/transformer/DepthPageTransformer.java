@@ -1,4 +1,4 @@
-package com.roje.rojemusic.ui.transformer;
+package com.roje.rojemusic.widget.transformer;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

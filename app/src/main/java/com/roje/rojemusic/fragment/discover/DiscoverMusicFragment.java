@@ -1,17 +1,16 @@
 package com.roje.rojemusic.fragment.discover;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.JsonObject;
 import com.roje.rojemusic.R;
@@ -38,6 +38,7 @@ import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
 import com.roje.rojemusic.utils.DisplayUtil;
+import com.roje.rojemusic.utils.LogUtil;
 import com.roje.rojemusic.utils.NetWorkUtil;
 
 import java.util.ArrayList;
@@ -51,6 +52,8 @@ import butterknife.ButterKnife;
 
 public class DiscoverMusicFragment extends BaseFragment {
 
+    @BindView(R.id.banlayout)
+    RelativeLayout banlayout;
     @BindView(R.id.ad_cover_vp)
     ViewPager vp;
     @BindView(R.id.llDots)
@@ -82,6 +85,7 @@ public class DiscoverMusicFragment extends BaseFragment {
     private MyObserver<List<Banner>> banObserver;
     private MyObserver<List<RecPlResult>> personalizedPlaylistObserver;
     private MyObserver<List<NewSongResult>> newSongObserver;
+    private int screenWidth;
     public DiscoverMusicFragment(){
     }
 
@@ -102,48 +106,48 @@ public class DiscoverMusicFragment extends BaseFragment {
         banObserver = new MyObserver<List<Banner>>(activity) {
             @Override
             protected void next(List<Banner> banners) {
-                List<View> views = new ArrayList<>();
-                for (Banner banner:banners){
-                    RelativeLayout layout = new RelativeLayout(activity);
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                    ImageView iv = new ImageView(activity);
-                    iv.setScaleType(ImageView.ScaleType.FIT_XY);
-                    Glide.with(activity).load(banner.getPic())
-                            .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
-                            .into(iv);
-                    layout.addView(iv,params);
-                    TextView tv = new TextView(activity);
-                    Drawable drawable;
-                    switch (banner.getTitleColor()){
-                        case "red":
-                            drawable = ContextCompat.getDrawable(activity,R.drawable.index_banner_tag_red);
-                            if (drawable != null)
-                                drawable.setAlpha(190);
-                            tv.setBackgroundDrawable(drawable);
-                            break;
-                        case "blue":
-                            drawable = ContextCompat.getDrawable(activity,R.drawable.index_banner_tag_blue);
-                            if (drawable != null)
-                                drawable.setAlpha(190);
-                            tv.setBackgroundDrawable(drawable);
-                            break;
-                        default:
-                            drawable = ContextCompat.getDrawable(activity,R.drawable.index_banner_tag_blue);
-                            if (drawable != null)
-                                drawable.setAlpha(190);
-                            tv.setBackgroundDrawable(drawable);
-                    }
-                    tv.setText(banner.getTypeTitle());
-                    tv.setTextSize(12);
-                    tv.setTextColor(Color.WHITE);
-                    params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                    params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-                    params.bottomMargin = DisplayUtil.dp2px(activity,30);
-                    layout.addView(tv,params);
-                    views.add(layout);
-                }
-                adapter.setBanner(views);
+//                List<View> views = new ArrayList<>();
+//                for (Banner banner:banners){
+//                    RelativeLayout layout = new RelativeLayout(activity);
+//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                    ImageView iv = new ImageView(activity);
+//                    iv.setAdjustViewBounds(true);
+//                    Glide.with(activity).load(banner.getPic())
+//                            .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
+//                            .into(iv);
+//                    layout.addView(iv,params);
+//                    TextView tv = new TextView(activity);
+//                    Drawable drawable;
+//                    switch (banner.getTitleColor()){
+//                        case "red":
+//                            drawable = ContextCompat.getDrawable(activity,R.drawable.index_banner_tag_red);
+//                            if (drawable != null)
+//                                drawable.setAlpha(190);
+//                            tv.setBackgroundDrawable(drawable);
+//                            break;
+//                        case "blue":
+//                            drawable = ContextCompat.getDrawable(activity,R.drawable.index_banner_tag_blue);
+//                            if (drawable != null)
+//                                drawable.setAlpha(190);
+//                            tv.setBackgroundDrawable(drawable);
+//                            break;
+//                        default:
+//                            drawable = ContextCompat.getDrawable(activity,R.drawable.index_banner_tag_blue);
+//                            if (drawable != null)
+//                                drawable.setAlpha(190);
+//                            tv.setBackgroundDrawable(drawable);
+//                    }
+//                    tv.setText(banner.getTypeTitle());
+//                    tv.setTextSize(12);
+//                    tv.setTextColor(Color.WHITE);
+//                    params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//                    params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//                    params.bottomMargin = DisplayUtil.dp2px(activity,30);
+//                    layout.addView(tv,params);
+//                    views.add(layout);
+//                }
+                adapter.setBanner(banners);
             }
         };
         personalizedPlaylistObserver = new MyObserver<List<RecPlResult>>(activity) {
@@ -205,6 +209,7 @@ public class DiscoverMusicFragment extends BaseFragment {
     }
 
     public void initData(){
+        screenWidth = DisplayUtil.screenWith(activity);
         dots = new ArrayList<>();
         plBeans = new ArrayList<>();
         pcResults = new ArrayList<>();
@@ -215,6 +220,12 @@ public class DiscoverMusicFragment extends BaseFragment {
     }
 
     private void initView() {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) banlayout.getLayoutParams();
+        params.weight = screenWidth;
+        params.height = screenWidth * 7 / 18;
+        banlayout.setLayoutParams(params);
+        LogUtil.i("new","width:"+params.weight+",height:"+params.height);
+        LogUtil.i("new","width:"+banlayout.getWidth()+",height:"+banlayout.getHeight());
         adapter = new LoopImageAdapter(vp);
         vp.setAdapter(adapter);
         vp.addOnPageChangeListener(adapter);
@@ -350,24 +361,19 @@ public class DiscoverMusicFragment extends BaseFragment {
     }
 
     class LoopImageAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener{
-        private List<View> views;
+        private List<Banner> banners;
         private ViewPager vp;
 
         LoopImageAdapter(ViewPager vp) {
-          this.views = new ArrayList<>();
+          banners = new ArrayList<>();
           this.vp = vp;
-
-          ImageView iv = new ImageView(activity);
-          iv.setImageResource(R.drawable.placeholder_disk_321);
-          iv.setScaleType(ImageView.ScaleType.FIT_XY);
-          views.add(iv);
         }
-        void setBanner(List<View> list){
-            views.clear();
-            views.addAll(list);
-            if (views.size() > 1){
+        void setBanner(List<Banner> list){
+            banners.clear();
+            banners.addAll(list);
+            if (banners.size() > 1){
                 dots.clear();
-                for (int i = 0; i< views.size(); i++){
+                for (int i = 0; i< banners.size(); i++){
                     ImageView dot = new ImageView(activity);
                     dot.setImageResource(R.drawable.vp_dot_selector);
                     dots.add(dot);
@@ -381,8 +387,8 @@ public class DiscoverMusicFragment extends BaseFragment {
                         params.rightMargin = DisplayUtil.dp2px(activity,4);
                     llDots.addView(dot,params);
                 }
-                views.add(views.get(0));
-                views.add(0, views.get(views.size() - 2));
+                banners.add(banners.get(0));
+                banners.add(0, banners.get(banners.size() - 2));
             }
             notifyDataSetChanged();
         }
@@ -390,12 +396,13 @@ public class DiscoverMusicFragment extends BaseFragment {
         @Override
         public void notifyDataSetChanged() {
             super.notifyDataSetChanged();
-            if (views.size() > 1)
+            if (banners.size() > 1)
                 vp.setCurrentItem(1,false);
         }
 
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+            container.removeView((View)object);
         }
 
         @Override
@@ -406,18 +413,50 @@ public class DiscoverMusicFragment extends BaseFragment {
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            View view = views.get(position);
-            ViewGroup parent = (ViewGroup) view.getParent();
-            if (parent != null)
-                parent.removeView(view);
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            container.addView(view,params);
-            return view;
+            if (banners.size() == 0){
+                ImageView iv = new ImageView(activity);
+                iv.setImageResource(R.drawable.placeholder_disk_321);
+                iv.setAdjustViewBounds(true);
+                iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                container.addView(iv,params);
+                return iv;
+            }else {
+                Banner banner = banners.get(position);
+                View view = LayoutInflater.from(activity).inflate(R.layout.banner_layout,container,false);
+                final ImageView cover = ButterKnife.findById(view,R.id.banCover);
+                Glide.with(activity).load(banner.getPic())
+                        .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
+                        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
+                        .into(cover);
+                TextView type = ButterKnife.findById(view,R.id.type);
+                switch (banner.getTitleColor()){
+                    case "red":
+                        type.setText(banner.getTypeTitle());
+                        type.setBackgroundResource(R.drawable.index_banner_tag_red);
+                        break;
+                    case "blue":
+                        type.setText(banner.getTypeTitle());
+                        type.setBackgroundResource(R.drawable.index_banner_tag_blue);
+                        break;
+                }
+                cover.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        LogUtil.i("width:"+cover.getWidth()+",height:"+cover.getHeight());
+                    }
+                });
+                container.addView(view);
+                return view;
+            }
         }
 
         @Override
         public int getCount() {
-            return views.size();
+            if (banners.size() == 0)
+                return 1;
+            else
+                return banners.size();
         }
 
         @Override
@@ -446,7 +485,7 @@ public class DiscoverMusicFragment extends BaseFragment {
                             dots.get(i).setSelected(false);
                     }
                 }
-            }else if (vp.getCurrentItem() == views.size() - 1){
+            }else if (vp.getCurrentItem() == banners.size() - 1){
                 for (int i=0;i<dots.size();i++){
                     if (i == 0){
                         if (!dots.get(i).isSelected())
@@ -471,8 +510,8 @@ public class DiscoverMusicFragment extends BaseFragment {
         public void onPageScrollStateChanged(int state) {
             if (state == ViewPager.SCROLL_STATE_IDLE){
                 if (vp.getCurrentItem() == 0)
-                    vp.setCurrentItem(views.size() - 2,false);
-                else if (vp.getCurrentItem() == views.size() - 1)
+                    vp.setCurrentItem(banners.size() - 2,false);
+                else if (vp.getCurrentItem() == banners.size() - 1)
                     vp.setCurrentItem(1,false);
             }
         }

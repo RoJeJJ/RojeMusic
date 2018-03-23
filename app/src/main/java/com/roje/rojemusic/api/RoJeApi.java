@@ -73,4 +73,10 @@ public interface RoJeApi {
     @FormUrlEncoded
     @POST("/weapi/personalized/newsong")
     Observable<ResponseBody> newSong(@FieldMap Map<String,String> form);
+    /**
+     * MV排行
+     */
+    @FormUrlEncoded
+    @POST("/weapi/mv/toplist")
+    Observable<ResponseBody> topMV(@FieldMap Map<String,String> form);
 }

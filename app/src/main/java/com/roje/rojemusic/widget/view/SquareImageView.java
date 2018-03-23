@@ -1,11 +1,8 @@
-package com.roje.rojemusic.ui.view;
+package com.roje.rojemusic.widget.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-
-import com.roje.rojemusic.R;
 
 
 public class SquareImageView extends android.support.v7.widget.AppCompatImageView {

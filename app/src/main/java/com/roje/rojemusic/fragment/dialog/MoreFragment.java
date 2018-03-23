@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.entities.DialogItem;
-import com.roje.rojemusic.ui.view.DialogScrollLayout;
+import com.roje.rojemusic.widget.view.DialogScrollLayout;
 import com.roje.rojemusic.utils.DisplayUtil;
 
 import java.util.ArrayList;

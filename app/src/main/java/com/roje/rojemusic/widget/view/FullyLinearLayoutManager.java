@@ -1,10 +1,9 @@
-package com.roje.rojemusic.ui.view;
+package com.roje.rojemusic.widget.view;
 
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 

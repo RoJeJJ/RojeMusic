@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.roje.rojemusic.ui.view.DialogScrollLayout
+    <com.roje.rojemusic.widget.view.DialogScrollLayout
         android:id="@+id/dialog_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +19,6 @@
             android:paddingBottom="8dp">
 
         </android.support.v7.widget.RecyclerView>
-    </com.roje.rojemusic.ui.view.DialogScrollLayout>
+    </com.roje.rojemusic.widget.view.DialogScrollLayout>
 
 </RelativeLayout>

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.roje.rojemusic.ui.view.SquareImageView
+    <com.roje.rojemusic.widget.view.SquareImageView
         android:contentDescription="@null"
         android:id="@+id/cover"
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/textSize10"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/cover"
+        android:layout_alignRight="@+id/cover"
         android:drawablePadding="2dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="4dp"
@@ -37,6 +37,6 @@
         android:textAlignment="textStart"
         android:gravity="start"
         android:layout_marginEnd="4dp"
-        android:layout_toEndOf="@+id/cover" />
+        android:layout_alignEnd="@+id/cover" />
 
 </RelativeLayout>

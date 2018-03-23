@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/banCover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/index_banner_tag_red"
+        android:layout_alignBottom="@+id/banCover"
+        android:layout_alignRight="@+id/banCover"
+        android:layout_alignEnd="@+id/banCover"
+        android:layout_marginBottom="30dp"
+        android:textSize="12sp"
+        android:textColor="@android:color/white"/>
+</RelativeLayout>

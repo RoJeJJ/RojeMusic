@@ -33,7 +33,7 @@ import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
 import com.roje.rojemusic.provider.RoJeMusicProvider;
-import com.roje.rojemusic.ui.decoration.MMitemDecoration;
+import com.roje.rojemusic.widget.decoration.MMitemDecoration;
 import com.roje.rojemusic.utils.CommonUtil;
 import com.roje.rojemusic.utils.SharedPreferencesUtil;
 

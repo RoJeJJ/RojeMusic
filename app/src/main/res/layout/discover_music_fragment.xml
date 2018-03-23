@@ -9,13 +9,14 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:id="@+id/banlayout"
+            android:layout_width="match_parent"
+            android:layout_height="124.4dp">
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/ad_cover_vp"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="match_parent" />
 
             <LinearLayout
                 android:id="@+id/llDots"

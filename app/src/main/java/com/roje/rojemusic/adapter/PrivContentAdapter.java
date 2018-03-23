@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.bean.privatecontent.PriContResult;
+import com.roje.rojemusic.utils.LogUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -53,12 +54,12 @@ public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             PriContResult bean = data.get(position - 1);
             ItemHolder h = (ItemHolder) holder;
             h.name.setText(bean.getName());
-            if (position == getItemCount() - 1)
+            if (position == getItemCount() - 1) {
                 Glide.with(mContext).load(bean.getPicUrl())
                         .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
                         .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
                         .into(h.cover);
-            else
+            }else
                 Glide.with(mContext).load(bean.getSPicUrl())
                         .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
                         .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
