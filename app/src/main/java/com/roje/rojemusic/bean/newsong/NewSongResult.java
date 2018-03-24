@@ -3,7 +3,6 @@ package com.roje.rojemusic.bean.newsong;
 import com.roje.rojemusic.bean.personfm.Song;
 
 public class NewSongResult {
-
     private long id;
     private int type;
     private String name;
