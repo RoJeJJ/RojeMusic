@@ -88,7 +88,7 @@ public class SongFragment extends BaseFragment {
         public void onBindViewHolder(Holder holder, int position) {
             Song song = songs.get(position);
             holder.title.setText(song.getMusicName());
-            holder.sub.setText(activity.getString(R.string.artistAndAlbum,song.getArtist(),song.getAlbumName()));
+            holder.sub.setText(activity.getString(R.string.na_na,song.getArtist(),song.getAlbumName()));
         }
 
         @Override

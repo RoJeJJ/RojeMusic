@@ -20,6 +20,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 
 public class RecommNewSongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
@@ -71,6 +73,7 @@ public class RecommNewSongAdapter extends RecyclerView.Adapter<RecyclerView.View
             NewSongResult bean = listBeans.get(position - 1);
             ItemHolder h = (ItemHolder) holder;
             Glide.with(mContext).load(bean.getSong().getAlbum().getPicUrl())
+                    .transition(withCrossFade())
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
                     .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_150))
                     .into(h.cover);

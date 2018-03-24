@@ -28,7 +28,7 @@
     <string name="skip">跳过</string>
     <string name="collect_play_list_title">收藏的歌单(%1$d)</string>
     <string name="loading">努力加载中…</string>
-    <string name="artistAndAlbum">%1$s&#160;-&#160;%2$s</string>
+    <string name="na_na">%1$s&#160;-&#160;%2$s</string>
     <string name="album_subtext">%1$d首&#160;%2$s</string>
     <string name="my_fm">私人FM</string>
     <string name="str_daily">每日推荐</string>

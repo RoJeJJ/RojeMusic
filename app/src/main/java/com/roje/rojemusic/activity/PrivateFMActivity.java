@@ -44,6 +44,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 public class PrivateFMActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -110,6 +112,7 @@ public class PrivateFMActivity extends BaseActivity {
         if (fmSongs.size() > 1){
             Song song = fmSongs.get(1);
             Glide.with(PrivateFMActivity.this).load(song.getAlbum().getPicUrl())
+                    .transition(withCrossFade())
                     .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_play_fm))
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
@@ -137,7 +140,10 @@ public class PrivateFMActivity extends BaseActivity {
                 fmSongs.addAll(data);
                 if (!in && fmSongs.size() > 0) {
                     in = true;
-                    Glide.with(PrivateFMActivity.this).load(fmSongs.get(0).getAlbum().getPicUrl()).into((ImageView) ims.getCurrentView());
+                    Glide.with(PrivateFMActivity.this)
+                            .load(fmSongs.get(0).getAlbum().getPicUrl())
+                            .transition(withCrossFade())
+                            .into((ImageView) ims.getCurrentView());
                     refreshBoard();
                     handler.sendEmptyMessage(0);
                 }
@@ -159,6 +165,7 @@ public class PrivateFMActivity extends BaseActivity {
                    if (fmSongs.size() > 0) {
                        Song song = fmSongs.get(0);
                        Glide.with(PrivateFMActivity.this).load(song.getAlbum().getBlurPicUrl())
+                               .transition(withCrossFade())
                                .apply(RequestOptions.bitmapTransform(blurTransformation))
                                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                                .into(sTarget);

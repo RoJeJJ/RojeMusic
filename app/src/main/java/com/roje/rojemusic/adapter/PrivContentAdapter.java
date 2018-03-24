@@ -2,7 +2,6 @@ package com.roje.rojemusic.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.bean.privatecontent.PriContResult;
-import com.roje.rojemusic.utils.LogUtil;
+import com.roje.rojemusic.utils.DisplayUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,16 +21,20 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 
 public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<PriContResult> data;
     private String title;
+    private int screenWidth;
 
     public PrivContentAdapter(Context context, List<PriContResult> list, int titleRes) {
         this.mContext = context;
         this.data = list;
-        this.title = context.getString(R.string.recomm_pc);
+        this.title = context.getString(titleRes);
+        screenWidth = DisplayUtil.screenWith(context);
     }
 
     @Override
@@ -49,21 +52,50 @@ public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HeadHolder) {
             HeadHolder h = (HeadHolder) holder;
-            h.title.setText(R.string.recomm_pc);
+            h.title.setText(title);
         } else if (holder instanceof ItemHolder) {
             PriContResult bean = data.get(position - 1);
-            ItemHolder h = (ItemHolder) holder;
+            final ItemHolder h = (ItemHolder) holder;
             h.name.setText(bean.getName());
             if (position == getItemCount() - 1) {
-                Glide.with(mContext).load(bean.getPicUrl())
+                ViewGroup.LayoutParams params = h.cover.getLayoutParams();
+                int height;
+                float scale;
+               if (bean.getWidth() != 0 && bean.getHeight() != 0){
+                   scale = (bean.getHeight()*0.1f)/(bean.getWidth()*0.1f);
+               }else {
+                   scale =399f/1080f;
+               }
+               height = (int) (screenWidth*scale);
+               params.width = screenWidth;
+               params.height = height;
+               h.cover.setLayoutParams(params);
+                Glide.with(mContext)
+                        .load(bean.getPicUrl())
+                        .transition(withCrossFade())
                         .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
                         .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
                         .into(h.cover);
-            }else
+            } else {
+                ViewGroup.LayoutParams params = h.cover.getLayoutParams();
+                int height;
+                float scale;
+                if (bean.getWidth() != 0 && bean.getHeight() != 0){
+                    scale = (bean.getHeight()*0.1f)/(bean.getWidth()*0.1f);
+                }else {
+                    scale =366f/640f;
+                }
+                int width = (screenWidth - 2) /2;
+                height = (int) (width * scale);
+                params.width = width;
+                params.height = height;
+                h.cover.setLayoutParams(params);
                 Glide.with(mContext).load(bean.getSPicUrl())
+                        .transition(withCrossFade())
                         .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
                         .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
                         .into(h.cover);
+            }
         }
     }
 

@@ -11,6 +11,8 @@ import com.roje.rojemusic.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.loginAct_bg)
     ImageView ivBg;
@@ -25,7 +27,10 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initViews() {
-        Glide.with(this).load(R.drawable.a5j).into(ivBg);
+        Glide.with(this)
+                .load(R.drawable.a5j)
+                .transition(withCrossFade())
+                .into(ivBg);
         login_mobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

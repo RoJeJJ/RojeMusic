@@ -1,6 +1,7 @@
 package com.roje.rojemusic.fragment.discover;
 
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,11 +13,13 @@ import android.view.ViewGroup;
 
 import com.google.gson.JsonObject;
 import com.roje.rojemusic.R;
+import com.roje.rojemusic.adapter.TopMvAdapter;
 import com.roje.rojemusic.bean.topmv.MvBean;
 import com.roje.rojemusic.fragment.BaseFragment;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
+import com.roje.rojemusic.utils.DisplayUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +34,14 @@ public class DiscoverVideoFragment extends BaseFragment {
     RecyclerView mvRecy;
     private Presenter presenter;
     private Observer<List<MvBean>> mvlistObserver;
-    private List<MvBean> mvlist;
+    private TopMvAdapter adapter;
+    private boolean loadMore = false;
+    private int offset = 0;
     public DiscoverVideoFragment(){}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mvlist = new ArrayList<>();
         rxInit();
     }
 
@@ -46,7 +50,12 @@ public class DiscoverVideoFragment extends BaseFragment {
         mvlistObserver = new MyObserver<List<MvBean>>(activity) {
             @Override
             protected void next(List<MvBean> mvBeans) {
-
+                if (!loadMore)
+                    adapter.setData(mvBeans);
+                else {
+                    offset = 0;
+                    adapter.addData(mvBeans);
+                }
             }
         };
     }
@@ -67,16 +76,32 @@ public class DiscoverVideoFragment extends BaseFragment {
     private void initViews() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false);
         mvRecy.setLayoutManager(layoutManager);
-
+        mvRecy.setAdapter(adapter = new TopMvAdapter(activity,new ArrayList<MvBean>()));
+        mvRecy.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.bottom = DisplayUtil.dp2px(activity,2);
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        JsonObject object = new JsonObject();
-        object.addProperty("offset",0);
-        object.addProperty("total",true);
-        object.addProperty("limit",30);
-        presenter.topMV(object,mvlistObserver);
+        reqData(false);
+    }
+    private void reqData(boolean loadMore){
+        this.loadMore = loadMore;
+        JsonObject reqJson = new JsonObject();
+        if (loadMore){
+            reqJson.addProperty("offset",++offset);
+            reqJson.addProperty("total",true);
+            reqJson.addProperty("limit",30);
+        }else {
+            reqJson.addProperty("offset",0);
+            reqJson.addProperty("total",true);
+            reqJson.addProperty("limit",30);
+        }
+        presenter.topMV(reqJson,mvlistObserver);
     }
 }

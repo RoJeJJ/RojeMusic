@@ -3,7 +3,6 @@ package com.roje.rojemusic.fragment.tab;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +73,7 @@ public class FolderFragment extends BaseFragment {
         public void onBindViewHolder(Holder holder, int position) {
             Song song = songs.get(position);
             holder.title.setText(song.getMusicName());
-            holder.sub.setText(activity.getString(R.string.artistAndAlbum,song.getArtist(),song.getAlbumName()));
+            holder.sub.setText(activity.getString(R.string.na_na,song.getArtist(),song.getAlbumName()));
         }
 
         @Override

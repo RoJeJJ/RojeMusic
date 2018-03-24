@@ -224,8 +224,6 @@ public class DiscoverMusicFragment extends BaseFragment {
         params.weight = screenWidth;
         params.height = screenWidth * 7 / 18;
         banlayout.setLayoutParams(params);
-        LogUtil.i("new","width:"+params.weight+",height:"+params.height);
-        LogUtil.i("new","width:"+banlayout.getWidth()+",height:"+banlayout.getHeight());
         adapter = new LoopImageAdapter(vp);
         vp.setAdapter(adapter);
         vp.addOnPageChangeListener(adapter);
@@ -287,6 +285,7 @@ public class DiscoverMusicFragment extends BaseFragment {
             public boolean canScrollVertically() {
                 return false;
             }
+
         };
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -440,12 +439,6 @@ public class DiscoverMusicFragment extends BaseFragment {
                         type.setBackgroundResource(R.drawable.index_banner_tag_blue);
                         break;
                 }
-                cover.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        LogUtil.i("width:"+cover.getWidth()+",height:"+cover.getHeight());
-                    }
-                });
                 container.addView(view);
                 return view;
             }

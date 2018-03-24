@@ -20,6 +20,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 
 public class RecommendPlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
@@ -71,11 +73,12 @@ public class RecommendPlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             RecPlResult bean = listBeans.get(position - 1);
             ItemHolder h = (ItemHolder) holder;
             Glide.with(mContext).load(bean.getPicUrl())
+                    .transition(withCrossFade())
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
                     .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_150))
                     .into(h.cover);
             h.name.setText(bean.getName());
-            if (bean.getPlayCount() >= 10000)
+            if (bean.getPlayCount() >= 100000)
                 h.count.setText(mContext.getString(R.string.play_count, (int) bean.getPlayCount() / 10000));
             else
                 h.count.setText(String.valueOf(bean.getPlayCount()));
