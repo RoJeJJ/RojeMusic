@@ -4,7 +4,7 @@
 package com.roje.rojemusic.bean.detail;
 
 import com.google.gson.annotations.SerializedName;
-import com.roje.rojemusic.bean.login.Experts;
+import com.roje.rojemusic.bean.login.LoginRespBean;
 
 public class Profile {
     @SerializedName("mutual")
@@ -14,7 +14,7 @@ public class Profile {
     @SerializedName("remarkName")
     private String remarkName;
     @SerializedName("experts")
-    private Experts experts;
+    private LoginRespBean.ProfileBean.ExpertsBean experts;
     @SerializedName("defaultAvatar")
     private boolean defaultAvatar;
     @SerializedName("avatarUrl")
@@ -96,10 +96,10 @@ public class Profile {
          return remarkName;
      }
 
-    public void setExperts(Experts experts) {
+    public void setExperts(LoginRespBean.ProfileBean.ExpertsBean experts) {
          this.experts = experts;
      }
-     public Experts getExperts() {
+     public LoginRespBean.ProfileBean.ExpertsBean getExperts() {
          return experts;
      }
 

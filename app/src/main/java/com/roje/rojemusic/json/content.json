@@ -1,0 +1,51 @@
+{
+  "code": 200,
+  "name": "独家放送",
+  "result": [
+    {
+      "id": 3504470576,
+      "url": "537518211",
+      "picUrl": "http://p1.music.126.net/wdeDWbHGlAPPT3OBdXgp_g==/18929192184374572.jpg",
+      "sPicUrl": "http://p1.music.126.net/qOgukfZSEsVdJNNF4jiiFg==/109951163208316644.jpg",
+      "type": 24,
+      "copywriter": "Danny与邓紫棋精彩串烧，感受巨肺小天后的能量",
+      "name": "Danny与邓紫棋精彩串烧，感受巨肺小天后的能量",
+      "eventUserId": 537518211,
+      "width": 1280,
+      "videoId": "587998660C09779F0B29B26CFA43CA24",
+      "eventType": 39,
+      "alg": "featured",
+      "height": 720
+    },
+    {
+      "id": 3504483566,
+      "url": "1323203690",
+      "picUrl": "http://p1.music.126.net/obC4JAL-QlhndFhcEe7Pcg==/19240353975034630.jpg",
+      "sPicUrl": "http://p1.music.126.net/T6lxPWEEt62jaog4ggh-xQ==/109951163208755141.jpg",
+      "type": 24,
+      "copywriter": "韩语版五月天翻唱串烧，全新演绎你爱的歌！",
+      "name": "韩语版五月天翻唱串烧，全新演绎你爱的歌！",
+      "eventUserId": 1323203690,
+      "width": 640,
+      "videoId": "96A3850F8D0146F957491D2F51F90AF8",
+      "eventType": 39,
+      "alg": "featured",
+      "height": 360
+    },
+    {
+      "id": 3502656666,
+      "url": "108493909",
+      "picUrl": "http://p1.music.126.net/d3gFIQx-w51IZKKGahItHw==/19229358858757320.jpg",
+      "sPicUrl": "http://p1.music.126.net/Df1Gk6iooBCeP4UcYYMiEA==/109951163208753268.jpg",
+      "type": 24,
+      "copywriter": "清新女声版《等你下课》，唤醒那段美好的青春",
+      "name": "清新女声版《等你下课》，唤醒那段美好的青春",
+      "eventUserId": 108493909,
+      "width": 640,
+      "videoId": "168CDB2BBA88903431C51F91B0101FF8",
+      "eventType": 39,
+      "alg": "featured",
+      "height": 360
+    }
+  ]
+}

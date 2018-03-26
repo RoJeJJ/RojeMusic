@@ -6,25 +6,24 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.roje.rojemusic.api.RoJeRequest;
-import com.roje.rojemusic.bean.Banner;
+import com.roje.rojemusic.bean.banner.BannerRespBean;
+import com.roje.rojemusic.bean.content.ContentRespBean;
 import com.roje.rojemusic.bean.detail.UserDetailBean;
-import com.roje.rojemusic.bean.login.LoginRootBean;
+import com.roje.rojemusic.bean.login.LoginRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
 import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.bean.personfm.PersonFMBean;
 import com.roje.rojemusic.bean.playlist.Playlist;
 import com.roje.rojemusic.bean.playlist.PlaylistRootBean;
-import com.roje.rojemusic.bean.privatecontent.PriContResult;
-import com.roje.rojemusic.bean.privatecontent.PriContentRootBean;
 import com.roje.rojemusic.bean.recommand.RecPlResult;
 import com.roje.rojemusic.bean.recommand.RecPlaylistRootBean;
-import com.roje.rojemusic.bean.response.BannerResponse;
 import com.roje.rojemusic.bean.topmv.MvBean;
 import com.roje.rojemusic.bean.topmv.TopMvRespBean;
 import com.roje.rojemusic.present.MyException;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.utils.EncryptUtils;
+import com.roje.rojemusic.utils.LogUtil;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -51,6 +50,7 @@ public class PresenterImpl implements Presenter{
                     @Override
                     public List<RecPlResult> apply(ResponseBody responseBody) throws Exception {
                         String s = responseBody.string();
+                        LogUtil.i(s);
                         JsonObject o = new JsonParser().parse(s).getAsJsonObject();
                         if (o.get("code").getAsInt() == 200){
                             RecPlaylistRootBean rootBean =
@@ -105,15 +105,23 @@ public class PresenterImpl implements Presenter{
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-    public void getBanners(Observer<List<Banner>> observer){
+    public void getBanners(Observer<List<BannerRespBean.BannersBean>> observer){
         Map<String,String> form = new HashMap<>();
         form.put("timeStamp",new Date().toString());
         form.put("csrf_token","");
         RoJeRequest.getRoJeApi().getBanners(form)
-                .map(new Function<BannerResponse, List<Banner>>() {
+                .map(new Function<ResponseBody, List<BannerRespBean.BannersBean>>() {
                     @Override
-                    public List<Banner> apply(BannerResponse bannerResponse) throws Exception {
-                        return bannerResponse.getBanners();
+                    public List<BannerRespBean.BannersBean> apply(ResponseBody responseBody) throws Exception {
+                        String data = responseBody.string();
+                        JsonObject o = new JsonParser().parse(data).getAsJsonObject();
+                        int code = o.get("code").getAsInt();
+                        switch (code){
+                            case 200:
+                                BannerRespBean bean = gson.fromJson(data,BannerRespBean.class);
+                                return bean.getBanners();
+                        }
+                        throw new MyException(o.get("code").getAsInt(),o.get("msg").getAsString());
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -122,15 +130,15 @@ public class PresenterImpl implements Presenter{
     }
 
     @Override
-    public void login(Map<String, String> form, Observer<LoginRootBean> Observer) {
+    public void login(Map<String, String> form, Observer<LoginRespBean> Observer) {
         RoJeRequest.getRoJeApi().login(form)
-                .map(new Function<ResponseBody, LoginRootBean>() {
+                .map(new Function<ResponseBody, LoginRespBean>() {
                     @Override
-                    public LoginRootBean apply(ResponseBody responseBody) throws Exception {
+                    public LoginRespBean apply(ResponseBody responseBody) throws Exception {
                         String json = responseBody.string();
                         JsonObject o = new JsonParser().parse(json).getAsJsonObject();
                         if (o.get("code").getAsInt() == 200)
-                            return gson.fromJson(json,LoginRootBean.class);
+                            return gson.fromJson(json,LoginRespBean.class);
                         else
                             throw new MyException(o.get("code").getAsInt(),o.get("msg").getAsString());
                     }
@@ -163,16 +171,16 @@ public class PresenterImpl implements Presenter{
     }
 
     @Override
-    public void getPrivateContent(Observer<List<PriContResult>> observer) {
+    public void getPrivateContent(Observer<List<ContentRespBean.ResultBean>> observer) {
         Map<String,String> form = EncryptUtils.encrypt("{}");
         RoJeRequest.getRoJeApi().getPrivateContent(form)
-                .map(new Function<ResponseBody, List<PriContResult>>() {
+                .map(new Function<ResponseBody, List<ContentRespBean.ResultBean>>() {
                     @Override
-                    public List<PriContResult> apply(ResponseBody responseBody) throws Exception {
+                    public List<ContentRespBean.ResultBean> apply(ResponseBody responseBody) throws Exception {
                         String s = responseBody.string();
                         JsonObject o = new JsonParser().parse(s).getAsJsonObject();
                         if (o.get("code").getAsInt() == 200) {
-                            PriContentRootBean bean = gson.fromJson(s, PriContentRootBean.class);
+                            ContentRespBean bean = gson.fromJson(s, ContentRespBean.class);
                             return bean.getResult();
                         }
                         throw new MyException(o.get("code").getAsInt(),o.get("msg").getAsString());
@@ -231,4 +239,21 @@ public class PresenterImpl implements Presenter{
                 .subscribe(observer);
     }
 
+    @Override
+    public <T extends String> void event(Observer<T> observer) {
+        JsonObject object = new JsonObject();
+        object.addProperty("csrf_token","");
+        Map<String,String> form = EncryptUtils.encrypt(object.toString());
+        RoJeRequest.getRoJeApi().event(form)
+                .map(new Function<ResponseBody, T>() {
+                    @Override
+                    public T apply(ResponseBody responseBody) throws Exception {
+                        String s = responseBody.string();
+                        return (T) s;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

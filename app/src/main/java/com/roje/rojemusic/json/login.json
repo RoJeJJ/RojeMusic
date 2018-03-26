@@ -1,0 +1,62 @@
+{
+  "loginType": 1,
+  "code": 200,
+  "account": {
+    "id": 76627798,
+    "userName": "1_18665115101",
+    "type": 1,
+    "status": 0,
+    "whitelistAuthority": 0,
+    "createTime": 1437279250561,
+    "salt": "[B@40d7cc80",
+    "tokenVersion": 0,
+    "ban": 0,
+    "baoyueVersion": 1,
+    "donateVersion": 0,
+    "vipType": 0,
+    "viptypeVersion": 0,
+    "anonimousUser": false
+  },
+  "profile": {
+    "detailDescription": "",
+    "djStatus": 0,
+    "followed": false,
+    "avatarImgIdStr": "109951162893463780",
+    "backgroundImgIdStr": "2002210674180202",
+    "description": "",
+    "userId": 76627798,
+    "vipType": 0,
+    "accountStatus": 0,
+    "expertTags": null,
+    "authStatus": 0,
+    "backgroundUrl": "http://p1.music.126.net/pmHS4fcQtcNEGewNb5HRhg==/2002210674180202.jpg",
+    "province": 440000,
+    "defaultAvatar": false,
+    "avatarUrl": "http://p1.music.126.net/UMq-fUUyaU6ZZycT3sz0qw==/109951162893463780.jpg",
+    "gender": 0,
+    "birthday": -2209017600000,
+    "city": 440100,
+    "backgroundImgId": 2002210674180202,
+    "userType": 0,
+    "avatarImgId": 109951162893463780,
+    "experts": {},
+    "mutual": false,
+    "remarkName": null,
+    "nickname": "Ro洛林",
+    "signature": "",
+    "authority": 0,
+    "avatarImgId_str": "109951162893463780"
+  },
+  "bindings": [
+    {
+      "expiresIn": 2147483647,
+      "refreshTime": 1437279250,
+      "url": "",
+      "userId": 76627798,
+      "tokenJsonStr": "{\"countrycode\":\"\",\"cellphone\":\"18665115101\",\"hasPassword\":true}",
+      "expired": false,
+      "id": 37900615,
+      "type": 1
+    }
+  ]
+}

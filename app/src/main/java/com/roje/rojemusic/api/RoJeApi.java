@@ -1,13 +1,9 @@
 package com.roje.rojemusic.api;
 
 
-import com.roje.rojemusic.bean.response.BannerResponse;
-import com.roje.rojemusic.bean.response.FmResponse;
-
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import okhttp3.ResponseBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -59,7 +55,7 @@ public interface RoJeApi {
      */
     @FormUrlEncoded
     @POST("api/v2/banner/get")
-    Observable<BannerResponse> getBanners(@FieldMap Map<String,String> form);
+    Observable<ResponseBody> getBanners(@FieldMap Map<String,String> form);
     /**
      * 独家放送
      */
@@ -79,4 +75,10 @@ public interface RoJeApi {
     @FormUrlEncoded
     @POST("/weapi/mv/toplist")
     Observable<ResponseBody> topMV(@FieldMap Map<String,String> form);
+    /**
+     * 动态消息
+     */
+    @FormUrlEncoded
+    @POST("/weapi/v1/event/get")
+    Observable<ResponseBody> event(@FieldMap Map<String,String> form);
 }

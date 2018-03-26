@@ -1,7 +1,7 @@
 
 package com.roje.rojemusic.bean.detail;
 
-import com.roje.rojemusic.bean.login.Bindings;
+import com.roje.rojemusic.bean.login.LoginRespBean;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class UserDetailBean {
     private boolean mobileSign;
     private boolean pcSign;
     private boolean peopleCanSeeMyPlayRecord;
-    private List<Bindings> bindings;
+    private List<LoginRespBean.BindingsBean> bindings;
     private boolean adValid;
     private int code;
     private long createTime;
@@ -68,10 +68,10 @@ public class UserDetailBean {
          return peopleCanSeeMyPlayRecord;
      }
 
-    public void setBindings(List<Bindings> bindings) {
+    public void setBindings(List<LoginRespBean.BindingsBean> bindings) {
          this.bindings = bindings;
      }
-     public List<Bindings> getBindings() {
+     public List<LoginRespBean.BindingsBean> getBindings() {
          return bindings;
      }
 

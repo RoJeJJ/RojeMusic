@@ -15,18 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bilibili.magicasakura.widgets.TintToolbar;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.roje.rojemusic.R;
-import com.roje.rojemusic.bean.login.LoginRootBean;
+import com.roje.rojemusic.bean.login.LoginRespBean;
 import com.roje.rojemusic.fragment.dialog.LoadingDialogFragment;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
 import com.roje.rojemusic.utils.DisplayUtil;
 import com.roje.rojemusic.utils.EncryptUtils;
-import com.roje.rojemusic.utils.LogUtil;
 import com.roje.rojemusic.utils.Md5Util;
 import com.roje.rojemusic.utils.SharedPreferencesUtil;
 import com.roje.rojemusic.utils.StatusBarUtil;
@@ -102,9 +99,9 @@ public class MobileLoginActivity extends BaseActivity {
                     object.addProperty("password", Md5Util.md5(password));
                     object.addProperty("rememberLogin",true);
                     Map<String,String> form = EncryptUtils.encrypt(object.toString());
-                    presenter.login(form, new MyObserver<LoginRootBean>(MobileLoginActivity.this) {
+                    presenter.login(form, new MyObserver<LoginRespBean>(MobileLoginActivity.this) {
                         @Override
-                        protected void next(LoginRootBean s) {
+                        protected void next(LoginRespBean s) {
                             dialog.dismiss();
                             SharedPreferencesUtil.setUerId(MobileLoginActivity.this,s.getProfile().getUserId());
                             SharedPreferencesUtil.setPrePhoneNumber(MobileLoginActivity.this,name.getText().toString());

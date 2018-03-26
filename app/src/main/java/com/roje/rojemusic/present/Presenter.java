@@ -2,13 +2,13 @@ package com.roje.rojemusic.present;
 
 
 import com.google.gson.JsonObject;
-import com.roje.rojemusic.bean.Banner;
+import com.roje.rojemusic.bean.banner.BannerRespBean;
+import com.roje.rojemusic.bean.content.ContentRespBean;
 import com.roje.rojemusic.bean.detail.UserDetailBean;
-import com.roje.rojemusic.bean.login.LoginRootBean;
+import com.roje.rojemusic.bean.login.LoginRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
 import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.bean.playlist.Playlist;
-import com.roje.rojemusic.bean.privatecontent.PriContResult;
 import com.roje.rojemusic.bean.recommand.RecPlResult;
 import com.roje.rojemusic.bean.topmv.MvBean;
 
@@ -21,10 +21,11 @@ public interface Presenter {
     void getRecommendRes(JsonObject object,Observer<List<RecPlResult>> observer);
     void getPersonalFM(Observer<List<Song>> observer);
     void getUserPlaylist(JsonObject object, Observer<List<Playlist>> observer);
-    void getBanners(Observer<List<Banner>> observer);
-    void login(Map<String,String> form, Observer<LoginRootBean> Observer);
+    void getBanners(Observer<List<BannerRespBean.BannersBean>> observer);
+    void login(Map<String,String> form, Observer<LoginRespBean> Observer);
     void userDetail(long id,Observer<UserDetailBean> observer);
-    void getPrivateContent(Observer<List<PriContResult>> observer);
+    void getPrivateContent(Observer<List<ContentRespBean.ResultBean>> observer);
     void newSong(Observer<List<NewSongResult>> observer);
     void topMV(JsonObject object, Observer<List<MvBean>> observer);
+    <T extends String> void event(Observer<T> observer);
 }

@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.roje.rojemusic.R;
-import com.roje.rojemusic.bean.privatecontent.PriContResult;
+import com.roje.rojemusic.bean.content.ContentRespBean;
 import com.roje.rojemusic.utils.DisplayUtil;
 
 import java.util.Collections;
@@ -26,11 +26,11 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<PriContResult> data;
+    private List<ContentRespBean.ResultBean> data;
     private String title;
     private int screenWidth;
 
-    public PrivContentAdapter(Context context, List<PriContResult> list, int titleRes) {
+    public PrivContentAdapter(Context context, List<ContentRespBean.ResultBean> list, int titleRes) {
         this.mContext = context;
         this.data = list;
         this.title = context.getString(titleRes);
@@ -54,7 +54,7 @@ public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             HeadHolder h = (HeadHolder) holder;
             h.title.setText(title);
         } else if (holder instanceof ItemHolder) {
-            PriContResult bean = data.get(position - 1);
+            ContentRespBean.ResultBean bean = data.get(position - 1);
             final ItemHolder h = (ItemHolder) holder;
             h.name.setText(bean.getName());
             if (position == getItemCount() - 1) {
@@ -104,7 +104,7 @@ public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyItemChanged(0);
     }
 
-    public void setData(List<PriContResult> list) {
+    public void setData(List<ContentRespBean.ResultBean> list) {
         data.clear();
         data.addAll(list);
         Collections.reverse(data);

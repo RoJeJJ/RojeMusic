@@ -1,6 +1,5 @@
 package com.roje.rojemusic.fragment.discover;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,16 +27,15 @@ import com.roje.rojemusic.activity.PrivateFMActivity;
 import com.roje.rojemusic.adapter.PrivContentAdapter;
 import com.roje.rojemusic.adapter.RecommNewSongAdapter;
 import com.roje.rojemusic.adapter.RecommendPlAdapter;
-import com.roje.rojemusic.bean.Banner;
+import com.roje.rojemusic.bean.banner.BannerRespBean;
+import com.roje.rojemusic.bean.content.ContentRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
-import com.roje.rojemusic.bean.privatecontent.PriContResult;
 import com.roje.rojemusic.bean.recommand.RecPlResult;
 import com.roje.rojemusic.fragment.BaseFragment;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
 import com.roje.rojemusic.utils.DisplayUtil;
-import com.roje.rojemusic.utils.LogUtil;
 import com.roje.rojemusic.utils.NetWorkUtil;
 
 import java.util.ArrayList;
@@ -75,14 +72,14 @@ public class DiscoverMusicFragment extends BaseFragment {
     private List<ImageView> dots;
     private Presenter presenter;
     private List<RecPlResult> plBeans;
-    private List<PriContResult> pcResults;
+    private List<ContentRespBean.ResultBean> pcResults;
     private List<NewSongResult> newSongResults;
     private RecommendPlAdapter plAdapter;
     private LoopImageAdapter adapter;
     private PrivContentAdapter priv_cont_adapter;
     private RecommNewSongAdapter newSongAdapter;
-    private MyObserver<List<PriContResult>> pcObserver;
-    private MyObserver<List<Banner>> banObserver;
+    private MyObserver<List<ContentRespBean.ResultBean>> pcObserver;
+    private MyObserver<List<BannerRespBean.BannersBean>> banObserver;
     private MyObserver<List<RecPlResult>> personalizedPlaylistObserver;
     private MyObserver<List<NewSongResult>> newSongObserver;
     private int screenWidth;
@@ -98,55 +95,10 @@ public class DiscoverMusicFragment extends BaseFragment {
 
     private void rxInit() {
         presenter = new PresenterImpl();
-        pcObserver = new MyObserver<List<PriContResult>>(activity) {
+        banObserver = new MyObserver<List<BannerRespBean.BannersBean>>(activity) {
             @Override
-            protected void next(List<PriContResult> s) {
-            }
-        };
-        banObserver = new MyObserver<List<Banner>>(activity) {
-            @Override
-            protected void next(List<Banner> banners) {
-//                List<View> views = new ArrayList<>();
-//                for (Banner banner:banners){
-//                    RelativeLayout layout = new RelativeLayout(activity);
-//                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                    ImageView iv = new ImageView(activity);
-//                    iv.setAdjustViewBounds(true);
-//                    Glide.with(activity).load(banner.getPic())
-//                            .apply(RequestOptions.placeholderOf(R.drawable.placeholder_disk_321))
-//                            .into(iv);
-//                    layout.addView(iv,params);
-//                    TextView tv = new TextView(activity);
-//                    Drawable drawable;
-//                    switch (banner.getTitleColor()){
-//                        case "red":
-//                            drawable = ContextCompat.getDrawable(activity,R.drawable.index_banner_tag_red);
-//                            if (drawable != null)
-//                                drawable.setAlpha(190);
-//                            tv.setBackgroundDrawable(drawable);
-//                            break;
-//                        case "blue":
-//                            drawable = ContextCompat.getDrawable(activity,R.drawable.index_banner_tag_blue);
-//                            if (drawable != null)
-//                                drawable.setAlpha(190);
-//                            tv.setBackgroundDrawable(drawable);
-//                            break;
-//                        default:
-//                            drawable = ContextCompat.getDrawable(activity,R.drawable.index_banner_tag_blue);
-//                            if (drawable != null)
-//                                drawable.setAlpha(190);
-//                            tv.setBackgroundDrawable(drawable);
-//                    }
-//                    tv.setText(banner.getTypeTitle());
-//                    tv.setTextSize(12);
-//                    tv.setTextColor(Color.WHITE);
-//                    params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-//                    params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-//                    params.bottomMargin = DisplayUtil.dp2px(activity,30);
-//                    layout.addView(tv,params);
-//                    views.add(layout);
-//                }
+            protected void next(List<BannerRespBean.BannersBean> banners) {
+
                 adapter.setBanner(banners);
             }
         };
@@ -157,9 +109,9 @@ public class DiscoverMusicFragment extends BaseFragment {
                 plAdapter.setData(results);
             }
         };
-        pcObserver = new MyObserver<List<PriContResult>>(activity) {
+        pcObserver = new MyObserver<List<ContentRespBean.ResultBean>>(activity) {
             @Override
-            protected void next(List<PriContResult> results) {
+            protected void next(List<ContentRespBean.ResultBean> results) {
                 pcResults = results;
                 priv_cont_adapter.setData(results);
             }
@@ -360,14 +312,14 @@ public class DiscoverMusicFragment extends BaseFragment {
     }
 
     class LoopImageAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener{
-        private List<Banner> banners;
+        private List<BannerRespBean.BannersBean> banners;
         private ViewPager vp;
 
         LoopImageAdapter(ViewPager vp) {
           banners = new ArrayList<>();
           this.vp = vp;
         }
-        void setBanner(List<Banner> list){
+        void setBanner(List<BannerRespBean.BannersBean> list){
             banners.clear();
             banners.addAll(list);
             if (banners.size() > 1){
@@ -421,7 +373,7 @@ public class DiscoverMusicFragment extends BaseFragment {
                 container.addView(iv,params);
                 return iv;
             }else {
-                Banner banner = banners.get(position);
+                BannerRespBean.BannersBean banner = banners.get(position);
                 View view = LayoutInflater.from(activity).inflate(R.layout.banner_layout,container,false);
                 final ImageView cover = ButterKnife.findById(view,R.id.banCover);
                 Glide.with(activity).load(banner.getPic())
