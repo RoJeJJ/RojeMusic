@@ -103,6 +103,7 @@
     <style name="bottomDialog.animation" parent="Animation.AppCompat.Dialog">
         <item name="android:windowEnterAnimation">@anim/bottom_dialog_enter</item>
         <item name="android:windowExitAnimation">@anim/bottom_dialog_exit</item>
+        <item name="android:duration">600</item>
     </style>
 
 </resources>

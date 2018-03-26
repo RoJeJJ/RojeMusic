@@ -67,4 +67,6 @@
     <string name="_86">+86</string>
     <string name="login_input_phone_number">请输入手机号码</string>
     <string name="play_count">%1$d万</string>
+    <string name="share_song">%1$s&#160;分享单曲：</string>
+    <string name="share_video">%1$s&#160;分享视频：</string>
 </resources>

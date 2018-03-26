@@ -14,6 +14,8 @@
     <color name="primaryText">#333333</color>
     <!--链接文字-->
     <color name="linkText">#477aac</color>
+    <!--链接文字背景-->
+    <color name="linkTextbg">#bdbdbd</color>
 
     <!--普通问题-->
     <color name="normalText">#666666</color>

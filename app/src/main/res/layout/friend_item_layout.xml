@@ -2,16 +2,28 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp">
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
     <ImageView
         android:contentDescription="@null"
         android:id="@+id/avatarImg"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/daren"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        app:srcCompat="@drawable/icn_daren_48"
+        app:layout_constraintBottom_toBottomOf="@+id/avatarImg"
+        app:layout_constraintEnd_toEndOf="@+id/avatarImg" />
 
     <LinearLayout
         android:id="@+id/titleLayout"
@@ -28,6 +40,7 @@
 
         <TextView
             android:id="@+id/title"
+            android:textColorHighlight="@color/linkTextbg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="1"
@@ -38,7 +51,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="1"
-            android:ellipsize="end"/>
+            android:ellipsize="end"
+            android:textSize="@dimen/textSize10"
+            android:textColor="@color/secondText"/>
     </LinearLayout>
 
     <ImageView
@@ -58,7 +73,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/titleLayout"
-        app:layout_constraintTop_toBottomOf="@+id/avatarImg" />
+        app:layout_constraintTop_toBottomOf="@+id/avatarImg"
+        android:textSize="14sp"
+        android:textColor="@color/primaryText"/>
 
     <ImageView
         android:id="@+id/cover"
@@ -86,20 +103,71 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:textColor="@color/secondText"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/cover"
-        app:layout_constraintTop_toBottomOf="@+id/cover" />
+        app:layout_constraintTop_toBottomOf="@+id/cover"
+        android:drawableLeft="@drawable/line_first"
+        android:textAlignment="textStart"
+        android:drawableStart="@drawable/line_first"
+        android:drawablePadding="2dp"
+        android:gravity="start" />
 
     <LinearLayout
         android:id="@+id/moreLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tag"
         app:layout_constraintTop_toBottomOf="@+id/tag">
 
+        <TextView
+            android:id="@+id/praise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:textColor="@color/secondText"
+            android:textAlignment="textStart"
+            android:drawableLeft="@drawable/nact_icn_praise_selector"
+            android:drawableStart="@drawable/nact_icn_praise_selector"
+            android:gravity="start" />
+
+        <TextView
+            android:id="@+id/cmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="2dp"
+            android:textAlignment="textStart"
+            android:textSize="12sp"
+            android:textColor="@color/secondText"
+            android:drawableLeft="@drawable/nact_icn_cmt_selector"
+            android:drawableStart="@drawable/nact_icn_cmt_selector"
+            android:gravity="start" />
+
+        <TextView
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="textStart"
+            android:textSize="12sp"
+            android:textColor="@color/secondText"
+            android:drawableLeft="@drawable/nact_icn_share_selector"
+            android:drawableStart="@drawable/nact_icn_share_selector"
+            android:gravity="start" />
+
+        <ImageView
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:src="@drawable/nact_more_selector" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

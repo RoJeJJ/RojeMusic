@@ -519,18 +519,6 @@ public class EventRespBean {
         }
 
         public static class InfoBean {
-            /**
-             * commentThread : {"id":"A_EV_2_3506237325_124948842","resourceInfo":null,"resourceType":2,"commentCount":218,"likedCount":1259,"shareCount":432,"hotCount":0,"latestLikedUsers":[{"s":1333415223,"t":1522034281442},{"s":317673614,"t":1522034268367},{"s":493623222,"t":1522034267158},{"s":1410287331,"t":1522034037459},{"s":1374521027,"t":1522033900716}],"resourceId":0,"resourceOwnerId":0,"resourceTitle":null}
-             * latestLikedUsers : null
-             * liked : false
-             * comments : null
-             * resourceType : 2
-             * resourceId : 3506237325
-             * commentCount : 218
-             * likedCount : 1259
-             * shareCount : 432
-             * threadId : A_EV_2_3506237325_124948842
-             */
 
             private CommentThreadBean commentThread;
             private Object latestLikedUsers;
@@ -632,7 +620,7 @@ public class EventRespBean {
                 private int likedCount;
                 private int shareCount;
                 private int hotCount;
-                private int resourceId;
+                private long resourceId;
                 private int resourceOwnerId;
                 private Object resourceTitle;
                 private List<LatestLikedUsersBean> latestLikedUsers;
@@ -693,11 +681,11 @@ public class EventRespBean {
                     this.hotCount = hotCount;
                 }
 
-                public int getResourceId() {
+                public long getResourceId() {
                     return resourceId;
                 }
 
-                public void setResourceId(int resourceId) {
+                public void setResourceId(long resourceId) {
                     this.resourceId = resourceId;
                 }
 

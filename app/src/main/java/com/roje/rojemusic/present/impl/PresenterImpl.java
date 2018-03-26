@@ -9,6 +9,7 @@ import com.roje.rojemusic.api.RoJeRequest;
 import com.roje.rojemusic.bean.banner.BannerRespBean;
 import com.roje.rojemusic.bean.content.ContentRespBean;
 import com.roje.rojemusic.bean.detail.UserDetailBean;
+import com.roje.rojemusic.bean.event.EventRespBean;
 import com.roje.rojemusic.bean.login.LoginRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
@@ -240,16 +241,22 @@ public class PresenterImpl implements Presenter{
     }
 
     @Override
-    public <T extends String> void event(Observer<T> observer) {
+    public void event(Observer<List<EventRespBean.EventBean>> observer) {
         JsonObject object = new JsonObject();
         object.addProperty("csrf_token","");
         Map<String,String> form = EncryptUtils.encrypt(object.toString());
         RoJeRequest.getRoJeApi().event(form)
-                .map(new Function<ResponseBody, T>() {
+                .map(new Function<ResponseBody, List<EventRespBean.EventBean>>() {
                     @Override
-                    public T apply(ResponseBody responseBody) throws Exception {
+                    public List<EventRespBean.EventBean> apply(ResponseBody responseBody) throws Exception {
                         String s = responseBody.string();
-                        return (T) s;
+                        JsonObject o = new JsonParser().parse(s).getAsJsonObject();
+                        int code = o.get("code").getAsInt();
+                        if (code == 200){
+                            EventRespBean bean = gson.fromJson(s, EventRespBean.class);
+                            return bean.getEvent();
+                        }
+                        throw new MyException(code,o.get("msg").getAsString());
                     }
                 })
                 .subscribeOn(Schedulers.io())

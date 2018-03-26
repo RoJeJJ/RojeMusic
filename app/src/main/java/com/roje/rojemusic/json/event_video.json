@@ -1,0 +1,68 @@
+{"msg": "天呐！#Dua Lipa#在摄影师朋友Lola的生日派对上跳Rihanna的热单《Work》性感大方又不失优雅！太可爱了！",
+  "video": {
+    "vid": 0,
+    "coverUrl": "http://p1.music.126.net/UbzZPDppYNWDMeUeI8Y8mw==/109951163206051734.jpg",
+    "duration": 17,
+    "playTime": 686380,
+    "height": 450,
+    "width": 360,
+    "size": 2038979,
+    "state": 1,
+    "coverType": 0,
+    "urlInfo": null,
+    "videoId": "499E52BC428DC1FD76BB9CFB9563E3F3",
+    "threadId": "R_VI_62_499E52BC428DC1FD76BB9CFB9563E3F3",
+    "title": "Dua Lipa在朋友生日派对上跳《Work》性感大方又不失优雅",
+    "description": null,
+    "creator": {
+      "userId": 124948842,
+      "userType": 0,
+      "nickname": "BrokenHeartssss",
+      "avatarImgId": 109951163207124309,
+      "avatarUrl": "http://p1.music.126.net/7aU1K2mmo3o3M2zlq74CGQ==/109951163207124309.jpg",
+      "backgroundImgId": 109951163202452055,
+      "backgroundUrl": "http://p1.music.126.net/iaN9ajEFNgNEinTW-3Yc9A==/109951163202452055.jpg",
+      "signature": "RIHANNA&DuaLipa&Bebe&Selena&Lana&MØ&Shakira&MGK&You……欢迎加入英倫危險甜心DUA LIPA，群号码：647712445",
+      "createTime": 1453103118718,
+      "userName": "10_oZoefuKATi3Nnq7awbPSQdAL9ZoI",
+      "accountType": 10,
+      "shortUserName": "oZoefuKATi3Nnq7awbPSQdAL9ZoI",
+      "birthday": -1548150753897,
+      "authority": 0,
+      "gender": 1,
+      "accountStatus": 0,
+      "province": 500000,
+      "city": 500101,
+      "authStatus": 0,
+      "description": null,
+      "detailDescription": null,
+      "defaultAvatar": false,
+      "expertTags": null,
+      "experts": {
+        "1": "视频达人"
+      },
+      "djStatus": 10,
+      "locationStatus": 30,
+      "vipType": 0,
+      "followed": false,
+      "mutual": false,
+      "authenticated": false,
+      "lastLoginTime": 1522032640318,
+      "lastLoginIP": "61.186.167.166",
+      "remarkName": null,
+      "viptypeVersion": 0
+    },
+    "videoStatus": 0,
+    "resolutions": [
+      {
+        "resolution": 240,
+        "size": 2038979
+      },
+      {
+        "resolution": 480,
+        "size": 2884503
+      }
+    ],
+    "durationms": 17000
+  }
+}

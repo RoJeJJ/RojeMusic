@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.roje.rojemusic.bean.banner.BannerRespBean;
 import com.roje.rojemusic.bean.content.ContentRespBean;
 import com.roje.rojemusic.bean.detail.UserDetailBean;
+import com.roje.rojemusic.bean.event.EventRespBean;
 import com.roje.rojemusic.bean.login.LoginRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
 import com.roje.rojemusic.bean.personfm.Song;
@@ -27,5 +28,5 @@ public interface Presenter {
     void getPrivateContent(Observer<List<ContentRespBean.ResultBean>> observer);
     void newSong(Observer<List<NewSongResult>> observer);
     void topMV(JsonObject object, Observer<List<MvBean>> observer);
-    <T extends String> void event(Observer<T> observer);
+    void event(Observer<List<EventRespBean.EventBean>> observer);
 }
