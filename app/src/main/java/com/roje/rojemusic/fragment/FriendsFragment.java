@@ -28,6 +28,7 @@ import com.roje.rojemusic.bean.event.EventRespBean;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
+import com.roje.rojemusic.widget.ricktext.ClickMovementMethod;
 import com.roje.rojemusic.widget.transformer.CircleBitmapTransform;
 
 import java.text.SimpleDateFormat;
@@ -149,9 +150,8 @@ public class FriendsFragment extends BaseFragment {
                     t = getString(R.string.share_video,bean.getUser().getNickname());
                     break;
             }
+            holder.title.setMovementMethod(ClickMovementMethod.getInstance(activity));
             SpannableStringBuilder spanBuilder = new SpannableStringBuilder(t);
-            spanBuilder.setSpan(new ForegroundColorSpan(ContextCompat.getColor(activity,R.color.linkText)),0,
-                    bean.getUser().getNickname().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             spanBuilder.setSpan(new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
@@ -160,6 +160,9 @@ public class FriendsFragment extends BaseFragment {
 
                 @Override
                 public void updateDrawState(TextPaint ds) {
+                    super.updateDrawState(ds);
+                    ds.setColor(ContextCompat.getColor(activity,R.color.linkText));
+                    ds.setUnderlineText(false);
                 }
             },0,bean.getUser().getNickname().length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.title.setText(spanBuilder);
