@@ -1,6 +1,5 @@
 package com.roje.rojemusic.fragment;
 
-import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +26,8 @@ import com.roje.rojemusic.bean.event.EventRespBean;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
-import com.roje.rojemusic.widget.ricktext.ClickMovementMethod;
+import com.roje.rojemusic.widget.text.JumpClickableSpan;
+import com.roje.rojemusic.widget.text.JumpMovementMethod;
 import com.roje.rojemusic.widget.transformer.CircleBitmapTransform;
 
 import java.text.SimpleDateFormat;
@@ -150,12 +149,11 @@ public class FriendsFragment extends BaseFragment {
                     t = getString(R.string.share_video,bean.getUser().getNickname());
                     break;
             }
-            holder.title.setMovementMethod(ClickMovementMethod.getInstance(activity));
+            holder.title.setMovementMethod(JumpMovementMethod.getInstance(ContextCompat.getColor(activity,R.color.linkTextbg)));
             SpannableStringBuilder spanBuilder = new SpannableStringBuilder(t);
             spanBuilder.setSpan(new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
-
                 }
 
                 @Override
