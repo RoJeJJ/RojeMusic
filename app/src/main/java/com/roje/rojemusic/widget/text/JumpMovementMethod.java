@@ -15,7 +15,6 @@ public class JumpMovementMethod extends LinkMovementMethod {
     private int clickColor;
     private static JumpMovementMethod sInstance;
     private BackgroundColorSpan bgSpan;
-    private float oldX;
     public static JumpMovementMethod getInstance(int clickColor){
         if (sInstance == null)
             sInstance = new JumpMovementMethod(clickColor);
@@ -47,33 +46,19 @@ public class JumpMovementMethod extends LinkMovementMethod {
             ClickableSpan[] links = buffer.getSpans(off, off, ClickableSpan.class);
             if (links.length != 0) {
                 if (action == MotionEvent.ACTION_UP) {
-                    Log.i("event","up");
                     buffer.removeSpan(bgSpan);
                     if (event.getY() < line * lineHeight || event.getY() > (line+1)*lineHeight) {
                         return true;
                     }else {
                         links[0].onClick(widget);
                     }
-//                    Selection.removeSelection(buffer);
                 } else if (action == MotionEvent.ACTION_DOWN) {
-                    Log.i("event","down");
-                    oldX = event.getX();
                     buffer.setSpan(bgSpan = new BackgroundColorSpan(clickColor),
                             buffer.getSpanStart(links[0]),
                             buffer.getSpanEnd(links[0]),
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }else {
-                    Log.i("event","move");
-                    if (event.getY() < line * lineHeight || event.getY() > (line+1)*lineHeight) {
-                        buffer.removeSpan(bgSpan);
-                        return true;
-                    }
-                    if (off == buffer.getSpanEnd(links[0]) && event.getX() > oldX){
-                        buffer.removeSpan(bgSpan);
-                        oldX = event.getX();
-                        return true;
-                    }
-                    oldX = event.getX();
+                    buffer.removeSpan(bgSpan);
                 }
                 return true;
             } else {

@@ -69,4 +69,5 @@
     <string name="play_count">%1$d万</string>
     <string name="share_song">%1$s&#160;分享单曲：</string>
     <string name="share_video">%1$s&#160;分享视频：</string>
+    <string name="taste_song">根据你的音乐口味生成,每天6:00更新</string>
 </resources>

@@ -2,6 +2,8 @@ package com.roje.rojemusic.present.impl;
 
 
 
+import android.os.Environment;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -26,6 +28,8 @@ import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.utils.EncryptUtils;
 import com.roje.rojemusic.utils.LogUtil;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +55,6 @@ public class PresenterImpl implements Presenter{
                     @Override
                     public List<RecPlResult> apply(ResponseBody responseBody) throws Exception {
                         String s = responseBody.string();
-                        LogUtil.i(s);
                         JsonObject o = new JsonParser().parse(s).getAsJsonObject();
                         if (o.get("code").getAsInt() == 200){
                             RecPlaylistRootBean rootBean =
@@ -262,5 +265,28 @@ public class PresenterImpl implements Presenter{
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
+    }
+
+    @Override
+    public void recommendSong(JsonObject object) {
+        object.addProperty("csrf_token","");
+        Map<String,String> form = EncryptUtils.encrypt(object.toString());
+        RoJeRequest.getRoJeApi().recommendSong(form)
+                .map(new Function<ResponseBody, String>() {
+                    @Override
+                    public String apply(ResponseBody responseBody) throws Exception {
+                        String data = responseBody.string();
+                        File file = new File(Environment.getExternalStorageDirectory()+"/song.txt");
+                        file.createNewFile();
+                        FileWriter writer = new FileWriter(file);
+                        writer.write(data);
+                        writer.flush();
+                        writer.close();
+                        return data;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 }

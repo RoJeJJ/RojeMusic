@@ -11,6 +11,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import com.roje.rojemusic.bean.event.EventRespBean;
 import com.roje.rojemusic.present.MyObserver;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
-import com.roje.rojemusic.widget.text.JumpClickableSpan;
 import com.roje.rojemusic.widget.text.JumpMovementMethod;
 import com.roje.rojemusic.widget.transformer.CircleBitmapTransform;
 
@@ -171,6 +171,12 @@ public class FriendsFragment extends BaseFragment {
             }
             holder.tag.setText(bean.getRcmdInfo().getReason());
             holder.praise.setText(String.valueOf(bean.getInfo().getLikedCount()));
+            holder.praise.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("tag","onclick");
+                }
+            });
             holder.cmt.setText(String.valueOf(bean.getInfo().getCommentCount()));
             holder.share.setText(String.valueOf(bean.getInfo().getShareCount()));
         }

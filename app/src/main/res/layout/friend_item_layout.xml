@@ -84,8 +84,7 @@
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textBody"
-        app:layout_constraintTop_toBottomOf="@+id/textBody"
-        app:srcCompat="@drawable/default_playlist_cover" />
+        app:layout_constraintTop_toBottomOf="@+id/textBody" />
 
     <TextView
         android:id="@+id/count"

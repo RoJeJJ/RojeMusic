@@ -23,6 +23,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.JsonObject;
 import com.roje.rojemusic.R;
+import com.roje.rojemusic.activity.DailySongsActivity;
 import com.roje.rojemusic.activity.PrivateFMActivity;
 import com.roje.rojemusic.adapter.PrivContentAdapter;
 import com.roje.rojemusic.adapter.RecommNewSongAdapter;
@@ -172,6 +173,12 @@ public class DiscoverMusicFragment extends BaseFragment {
     }
 
     private void initView() {
+        iv_daily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(activity, DailySongsActivity.class));
+            }
+        });
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) banlayout.getLayoutParams();
         params.weight = screenWidth;
         params.height = screenWidth * 7 / 18;

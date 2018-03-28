@@ -29,4 +29,5 @@ public interface Presenter {
     void newSong(Observer<List<NewSongResult>> observer);
     void topMV(JsonObject object, Observer<List<MvBean>> observer);
     void event(Observer<List<EventRespBean.EventBean>> observer);
+    void recommendSong(JsonObject object);
 }

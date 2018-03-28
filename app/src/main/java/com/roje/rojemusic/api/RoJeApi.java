@@ -81,4 +81,11 @@ public interface RoJeApi {
     @FormUrlEncoded
     @POST("/weapi/v1/event/get")
     Observable<ResponseBody> event(@FieldMap Map<String,String> form);
+
+    /**
+     * 每日推荐歌曲
+     */
+    @FormUrlEncoded
+    @POST("/weapi/v1/discovery/recommend/songs")
+    Observable<ResponseBody> recommendSong(@FieldMap Map<String,String> form);
 }
