@@ -19,6 +19,7 @@ import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.bean.personfm.PersonFMBean;
 import com.roje.rojemusic.bean.playlist.Playlist;
 import com.roje.rojemusic.bean.playlist.PlaylistRootBean;
+import com.roje.rojemusic.bean.recommand.RecDailySongRespBean;
 import com.roje.rojemusic.bean.recommand.RecPlResult;
 import com.roje.rojemusic.bean.recommand.RecPlaylistRootBean;
 import com.roje.rojemusic.bean.topmv.MvBean;
@@ -268,25 +269,25 @@ public class PresenterImpl implements Presenter{
     }
 
     @Override
-    public void recommendSong(JsonObject object) {
+    public void recommendSong(JsonObject object,Observer<List<RecDailySongRespBean.RecommendBean>> observer) {
         object.addProperty("csrf_token","");
         Map<String,String> form = EncryptUtils.encrypt(object.toString());
         RoJeRequest.getRoJeApi().recommendSong(form)
-                .map(new Function<ResponseBody, String>() {
+                .map(new Function<ResponseBody, List<RecDailySongRespBean.RecommendBean>>() {
                     @Override
-                    public String apply(ResponseBody responseBody) throws Exception {
+                    public List<RecDailySongRespBean.RecommendBean> apply(ResponseBody responseBody) throws Exception {
                         String data = responseBody.string();
-                        File file = new File(Environment.getExternalStorageDirectory()+"/song.txt");
-                        file.createNewFile();
-                        FileWriter writer = new FileWriter(file);
-                        writer.write(data);
-                        writer.flush();
-                        writer.close();
-                        return data;
+                        JsonObject o = new JsonParser().parse(data).getAsJsonObject();
+                        int code = o.get("code").getAsInt();
+                        if (code == 200){
+                            RecDailySongRespBean bean = gson.fromJson(data,RecDailySongRespBean.class);
+                            return bean.getRecommend();
+                        }
+                        throw new MyException(code,o.get("msg").getAsString());
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe(observer);
     }
 }

@@ -22,21 +22,21 @@ public class RoJeMusicDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("create table if not exists "+ SongSheetColumns.TABLE_NAME+" (" +
                 SongSheetColumns.id +" long not null," +
                 SongSheetColumns.name +" char not null," +
-                SongSheetColumns.trackNumberUpdateTime+" long  default "+System.currentTimeMillis()+","+
-                SongSheetColumns.status+" int not null default 0,"+
-                SongSheetColumns.userId +" int not null default 0," +
-                SongSheetColumns.createTime+" long not null default "+System.currentTimeMillis()+"," +
-                SongSheetColumns.updateTime+" long not null default "+System.currentTimeMillis()+"," +
-                SongSheetColumns.subscribedCount+" int not null default 0," +
-                SongSheetColumns.trackCount+" int not null default 0," +
-                SongSheetColumns.coverImgUrl+" char not null default ''," +
-                SongSheetColumns.description+" char default ''," +
-                SongSheetColumns.tag+" char default ''," +
-                SongSheetColumns.playCount+" int not null default 0," +
-                SongSheetColumns.trackUpdateTime+" long default "+System.currentTimeMillis()+"," +
-                SongSheetColumns.totalDuration+" long not null default 0," +
-                SongSheetColumns.shareCount+" int not null default 0," +
-                SongSheetColumns.commentCount+" int not null default 0);");
+                SongSheetColumns.trackNumberUpdateTime+" long  def "+System.currentTimeMillis()+","+
+                SongSheetColumns.status+" int not null def 0,"+
+                SongSheetColumns.userId +" int not null def 0," +
+                SongSheetColumns.createTime+" long not null def "+System.currentTimeMillis()+"," +
+                SongSheetColumns.updateTime+" long not null def "+System.currentTimeMillis()+"," +
+                SongSheetColumns.subscribedCount+" int not null def 0," +
+                SongSheetColumns.trackCount+" int not null def 0," +
+                SongSheetColumns.coverImgUrl+" char not null def ''," +
+                SongSheetColumns.description+" char def ''," +
+                SongSheetColumns.tag+" char def ''," +
+                SongSheetColumns.playCount+" int not null def 0," +
+                SongSheetColumns.trackUpdateTime+" long def "+System.currentTimeMillis()+"," +
+                SongSheetColumns.totalDuration+" long not null def 0," +
+                SongSheetColumns.shareCount+" int not null def 0," +
+                SongSheetColumns.commentCount+" int not null def 0);");
         sqLiteDatabase.execSQL("create table if not exists "+RecentStoreColumns.TABLE_NAME+"("+
                 RecentStoreColumns.ID+" long not null," +
                 RecentStoreColumns.TIME_PLAYED+" long not null);");

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/cover"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/song_play_icon" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primaryText"
+        android:layout_marginEnd="4dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/more"
+        app:layout_constraintStart_toEndOf="@+id/cover"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="4dp" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/secondText"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/more"
+        app:layout_constraintStart_toEndOf="@+id/sq_img"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/sq_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/subtitle"
+        app:layout_constraintStart_toEndOf="@+id/cover"
+        app:layout_constraintTop_toTopOf="@+id/subtitle"
+        app:srcCompat="@drawable/list_icn_sq_sml" />
+
+    <ImageView
+        android:contentDescription="@null"
+        android:id="@+id/more"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/list_icn_more"
+        android:scaleType="centerInside"/>
+</android.support.constraint.ConstraintLayout>

@@ -10,6 +10,7 @@ import com.roje.rojemusic.bean.login.LoginRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
 import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.bean.playlist.Playlist;
+import com.roje.rojemusic.bean.recommand.RecDailySongRespBean;
 import com.roje.rojemusic.bean.recommand.RecPlResult;
 import com.roje.rojemusic.bean.topmv.MvBean;
 
@@ -29,5 +30,5 @@ public interface Presenter {
     void newSong(Observer<List<NewSongResult>> observer);
     void topMV(JsonObject object, Observer<List<MvBean>> observer);
     void event(Observer<List<EventRespBean.EventBean>> observer);
-    void recommendSong(JsonObject object);
+    void recommendSong(JsonObject object, Observer<List<RecDailySongRespBean.RecommendBean>> observer);
 }

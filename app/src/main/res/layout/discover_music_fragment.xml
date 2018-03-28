@@ -71,10 +71,10 @@
                         android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="22sp"
-                        android:textColor="@drawable/cp_login_text_color_selector"
-                        android:gravity="center"
-                        android:textStyle="bold"/>
+                        android:textSize="12sp"
+                        android:paddingTop="6dp"
+                        android:textColor="@color/cp_login_text_color_selector"
+                        android:gravity="center" />
 
                     <ImageView
                         android:id="@+id/iv_daily"
@@ -84,6 +84,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:contentDescription="@null"
+                        android:scaleType="centerInside"
                         android:src="@drawable/recommend_icn_daily_selector" />
                 </RelativeLayout>
 

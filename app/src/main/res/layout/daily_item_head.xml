@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="48dp">
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@null"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/note_btn_play_white"
+        android:tint="@color/primaryText"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/playall"
+        android:textSize="16sp"
+        android:textColor="@color/primaryText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.bilibili.magicasakura.widgets.TintTextView
+        android:id="@+id/select_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/play_icn_src"
+        android:drawableStart="@drawable/play_icn_src"
+        android:gravity="center"
+        android:text="@string/select_more"
+        android:textColor="@color/primaryText"
+        android:textSize="14sp"
+        app:drawableLeftTint="@color/primaryText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingRight="@dimen/padding8"
+        android:paddingEnd="@dimen/padding8"
+        android:paddingLeft="@dimen/padding8"/>
+
+</android.support.constraint.ConstraintLayout>

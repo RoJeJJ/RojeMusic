@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.roje.rojemusic.R;
@@ -112,9 +114,11 @@ public class FriendsFragment extends BaseFragment {
 
     class FriendsEventAdapter extends RecyclerView.Adapter<FriendsEventAdapter.Holder>{
 
+        private Gson gson;
         private SimpleDateFormat dateFormat;
         FriendsEventAdapter(){
             dateFormat = new SimpleDateFormat("M月dd", Locale.CHINA);
+            gson = new Gson();
         }
         @Override
         public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -140,7 +144,7 @@ public class FriendsFragment extends BaseFragment {
                 Glide.with(activity).load(R.drawable.icn_daren_48).into(holder.daren);
             }else
                 holder.daren.setVisibility(View.GONE);
-            String t = "";
+            String t;
             switch (type){
                 case 1:
                     t = getString(R.string.share_song,bean.getUser().getNickname());
@@ -148,6 +152,8 @@ public class FriendsFragment extends BaseFragment {
                 case 2:
                     t = getString(R.string.share_video,bean.getUser().getNickname());
                     break;
+                default:
+                        t = bean.getUser().getNickname();
             }
             holder.title.setMovementMethod(JumpMovementMethod.getInstance(ContextCompat.getColor(activity,R.color.linkTextbg)));
             SpannableStringBuilder spanBuilder = new SpannableStringBuilder(t);
@@ -155,7 +161,6 @@ public class FriendsFragment extends BaseFragment {
                 @Override
                 public void onClick(View widget) {
                 }
-
                 @Override
                 public void updateDrawState(TextPaint ds) {
                     super.updateDrawState(ds);
@@ -167,6 +172,8 @@ public class FriendsFragment extends BaseFragment {
             holder.date.setText(dateFormat.format(new Date(bean.getEventTime())));
             holder.textBody.setText(object.get("msg").getAsString());
             if (type == 2){
+                JsonElement element = object.get("video").getAsJsonObject().get("coverUrl");
+                if (!element.isJsonNull())
                 Glide.with(activity).load(object.get("video").getAsJsonObject().get("coverUrl").getAsString()).into(holder.cover);
             }
             holder.tag.setText(bean.getRcmdInfo().getReason());
