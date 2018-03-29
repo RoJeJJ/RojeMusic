@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:maxLines="1"
+        android:singleLine="true"
         android:textSize="12sp"
         android:ellipsize="end"
         android:text="@string/create_play_list_title"/>

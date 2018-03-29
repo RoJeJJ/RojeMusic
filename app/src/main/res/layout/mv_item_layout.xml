@@ -19,7 +19,7 @@
         android:layout_marginStart="8dp"
         android:textSize="12sp"
         android:textColor="@android:color/white"
-        android:lines="1"
+        android:singleLine="true"
         android:maxWidth="200dp" />
     <TextView
         android:id="@+id/play_count"

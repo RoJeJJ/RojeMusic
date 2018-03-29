@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TitleText16"
-            android:maxLines="1"
+            android:singleLine="true"
             android:ellipsize="end"
             android:text="@string/loading"/>
 
@@ -55,7 +55,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:text="@string/loading"
                 android:textAppearance="@style/SubText10" />
         </LinearLayout>

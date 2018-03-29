@@ -42,14 +42,14 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="1"
+            android:singleLine="true"
             android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="1"
+            android:singleLine="true"
             android:ellipsize="end"
             android:textSize="@dimen/textSize10"
             android:textColor="@color/secondText"/>

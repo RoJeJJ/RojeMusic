@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -30,8 +31,6 @@ public class LocalMusicActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-    @BindView(R.id.back)
-    ImageView back;
     @BindView(R.id.vp)
     ViewPager vp;
     private String[] titles;
@@ -61,14 +60,20 @@ public class LocalMusicActivity extends BaseActivity {
             toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(this),0,0);
         setSupportActionBar(toolbar);
         ActionBar bar = getSupportActionBar();
-        if (bar != null)
+        if (bar != null) {
             bar.setDisplayShowTitleEnabled(false);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+            bar.setDisplayHomeAsUpEnabled(true);
+            bar.setHomeAsUpIndicator(R.drawable.actionbar_back);
+        }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

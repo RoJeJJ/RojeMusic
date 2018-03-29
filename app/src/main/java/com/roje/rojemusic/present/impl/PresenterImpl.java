@@ -2,8 +2,6 @@ package com.roje.rojemusic.present.impl;
 
 
 
-import android.os.Environment;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -19,7 +17,7 @@ import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.bean.personfm.PersonFMBean;
 import com.roje.rojemusic.bean.playlist.Playlist;
 import com.roje.rojemusic.bean.playlist.PlaylistRootBean;
-import com.roje.rojemusic.bean.recommand.RecDailySongRespBean;
+import com.roje.rojemusic.bean.daily_song.RecDailySongRespBean;
 import com.roje.rojemusic.bean.recommand.RecPlResult;
 import com.roje.rojemusic.bean.recommand.RecPlaylistRootBean;
 import com.roje.rojemusic.bean.topmv.MvBean;
@@ -27,10 +25,7 @@ import com.roje.rojemusic.bean.topmv.TopMvRespBean;
 import com.roje.rojemusic.present.MyException;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.utils.EncryptUtils;
-import com.roje.rojemusic.utils.LogUtil;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;

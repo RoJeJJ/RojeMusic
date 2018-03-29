@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_material_light_1"
     tools:context="com.roje.rojemusic.activity.DailySongsActivity">
+
+    <com.bilibili.magicasakura.widgets.TintToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_primary_color"
+        android:elevation="3dp"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        tools:targetApi="lollipop">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/str_daily"
+            android:textAppearance="@style/Toolbar.Title" />
+    </com.bilibili.magicasakura.widgets.TintToolbar>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/dailyRecycle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
+    <com.roje.rojemusic.widget.view.LoadLayout
+        android:paddingTop="60dp"
+        android:id="@+id/load"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

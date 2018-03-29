@@ -8,6 +8,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
@@ -41,8 +42,8 @@ public class SongFragment extends BaseFragment {
     private List<Song> songs;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.load_anim)
-    ImageView load_anim;
+//    @BindView(R.id.load_anim)
+//    ImageView load_anim;
     @BindView(R.id.load)
     View loadView;
     private SingleSongLoaderCallbacks loaderCallbacks;
@@ -64,15 +65,15 @@ public class SongFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab,container,false);
         ButterKnife.bind(this,view);
         rv.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
         rv.addItemDecoration(new SongListDecoration(activity));
         adapter = new SongListAdapter();
         rv.setAdapter(adapter);
-        AnimationDrawable animationDrawable = (AnimationDrawable) load_anim.getDrawable();
-        animationDrawable.start();
+//        AnimationDrawable animationDrawable = (AnimationDrawable) load_anim.getDrawable();
+//        animationDrawable.start();
         getLoaderManager().initLoader(0,null,loaderCallbacks);
         return view;
     }

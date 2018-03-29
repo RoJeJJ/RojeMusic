@@ -34,8 +34,6 @@ public class AlbumFragment extends BaseFragment {
     private List<Album> albums;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.load_anim)
-    ImageView load_anim;
     @BindView(R.id.load)
     View loadView;
     private SingleSongLoaderCallbacks loaderCallbacks;
@@ -63,8 +61,6 @@ public class AlbumFragment extends BaseFragment {
         rv.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
         adapter = new AlbumListAdapter();
         rv.setAdapter(adapter);
-        AnimationDrawable animationDrawable = (AnimationDrawable) load_anim.getDrawable();
-        animationDrawable.start();
         getLoaderManager().initLoader(0,null,loaderCallbacks);
         return view;
     }

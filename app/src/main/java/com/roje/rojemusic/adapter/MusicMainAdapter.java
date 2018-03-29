@@ -264,8 +264,8 @@ public class MusicMainAdapter extends RecyclerView.Adapter {
         public void onClick(View view) {
             String title = activity.getString(R.string.create_dialog_title);
             ArrayList<DialogItem> items = new ArrayList<>();
-            items.add(new DialogItem(R.drawable.lay_icn_fav,R.string.new_sheet));
-            items.add(new DialogItem(R.drawable.lay_icn_edit,R.string.pl_manage));
+            items.add(new DialogItem(R.drawable.lay_icn_fav,activity.getString(R.string.new_sheet)));
+            items.add(new DialogItem(R.drawable.lay_icn_edit,activity.getString(R.string.pl_manage)));
 //            for (int i=0;i<20;i++){
 //                items.add(new DialogItem(R.drawable.lay_icn_fav,R.string.pl_manage));
 //            }

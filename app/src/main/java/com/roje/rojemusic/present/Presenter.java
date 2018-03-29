@@ -10,7 +10,7 @@ import com.roje.rojemusic.bean.login.LoginRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
 import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.bean.playlist.Playlist;
-import com.roje.rojemusic.bean.recommand.RecDailySongRespBean;
+import com.roje.rojemusic.bean.daily_song.RecDailySongRespBean;
 import com.roje.rojemusic.bean.recommand.RecPlResult;
 import com.roje.rojemusic.bean.topmv.MvBean;
 

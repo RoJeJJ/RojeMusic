@@ -14,16 +14,6 @@
         app:contentInsetStart="0dp"
         android:elevation="3dp"
         tools:targetApi="lollipop">
-        <ImageView
-            android:id="@+id/back"
-            android:contentDescription="@null"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="match_parent"
-            android:src="@drawable/actionbar_back"
-            android:scaleType="centerInside"
-            android:background="@drawable/actionbar_btn_dark_bg"
-            android:clickable="true"
-            android:focusable="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

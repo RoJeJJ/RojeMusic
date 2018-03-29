@@ -80,7 +80,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
-                                    android:lines="1"
+                                    android:singleLine="true"
                                     android:maxWidth="250dp"
                                     android:textColor="@android:color/white"
                                     android:textSize="18sp" />
@@ -93,7 +93,7 @@
                                     android:layout_marginStart="4dp"
                                     android:background="@drawable/profile_tag_lv"
                                     android:gravity="center"
-                                    android:lines="1"
+                                    android:singleLine="true"
                                     android:textColor="@android:color/white"
                                     android:textSize="@dimen/textSize10"
                                     android:textStyle="italic" />

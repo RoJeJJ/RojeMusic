@@ -58,12 +58,10 @@ public class DiscoverMusicFragment extends BaseFragment {
     ViewPager vp;
     @BindView(R.id.llDots)
     LinearLayout llDots;
-    @BindView(R.id.date_today)
+    @BindView(R.id.daily_btn)
     TextView daily_today;
     @BindView(R.id.iv_fm_btn)
     ImageView iv_fm;
-    @BindView(R.id.iv_daily)
-    ImageView iv_daily;
     @BindView(R.id.iv_upbill)
     ImageView iv_upbill;
     @BindView(R.id.recomm_recy)
@@ -175,7 +173,8 @@ public class DiscoverMusicFragment extends BaseFragment {
     }
 
     private void initView() {
-        iv_daily.setOnClickListener(new View.OnClickListener() {
+        daily_today.setText(today());
+        daily_today.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(activity, DailySongsActivity.class));
@@ -190,7 +189,6 @@ public class DiscoverMusicFragment extends BaseFragment {
         vp.addOnPageChangeListener(adapter);
         vp.setCurrentItem(1,false);
 
-        daily_today.setText(today());
         iv_fm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -72,4 +72,16 @@
     <string name="taste_song">根据你的音乐口味生成,每天6:00更新</string>
     <string name="playall">播放全部</string>
     <string name="select_more">多选</string>
+    <string name="no_network">无可用网络,请开启网络后,点击重试!</string>
+    <string name="load_fail">加载失败,请稍后点击重试!</string>
+    <string name="daily_more_next_play">下一首播放</string>
+    <string name="daily_more_collect">收藏到歌单</string>
+    <string name="daily_more_dld">下载</string>
+    <string name="daily_more_comment">评论(%1$d)</string>
+    <string name="daily_more_share">分享</string>
+    <string name="daily_more_artist">歌手:&#160;%1$s</string>
+    <string name="daily_more_album">专辑:&#160;%1$s</string>
+    <string name="daily_more_video">查看视频</string>
+    <string name="daily_more_ringtone">彩铃</string>
+    <string name="daily_more_boring">不感兴趣</string>
 </resources>

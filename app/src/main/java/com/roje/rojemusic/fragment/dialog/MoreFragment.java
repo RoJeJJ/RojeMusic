@@ -147,7 +147,7 @@ public class MoreFragment extends AttachDialogFragment {
                 final ItemHolder itemHolder = (ItemHolder) holder;
                 DialogItem item = items.get(position - 1);
                 itemHolder.icn.setImageResource(item.icn);
-                itemHolder.text.setText(item.text);
+                itemHolder.text.setText(item.title);
                 itemHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

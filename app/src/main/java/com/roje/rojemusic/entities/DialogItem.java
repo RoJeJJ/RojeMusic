@@ -5,10 +5,10 @@ import java.io.Serializable;
 
 public class DialogItem implements Serializable{
     public int icn;
-    public int text;
+    public String title;
 
-    public DialogItem(int icn, int text) {
+    public DialogItem(int icn, String text) {
         this.icn = icn;
-        this.text = text;
+        this.title = text;
     }
 }

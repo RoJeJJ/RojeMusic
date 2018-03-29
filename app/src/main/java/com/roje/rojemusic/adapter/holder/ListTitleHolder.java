@@ -119,8 +119,8 @@ public class ListTitleHolder<T extends SheetTabItem> extends BaseHolder<T> {
     private void createDialogMyPlayList(){
         String title = activity.getString(R.string.create_dialog_title);
         ArrayList<DialogItem> items = new ArrayList<>();
-        items.add(new DialogItem(R.drawable.lay_icn_fav,R.string.new_sheet));
-        items.add(new DialogItem(R.drawable.lay_icn_edit,R.string.pl_manage));
+        items.add(new DialogItem(R.drawable.lay_icn_fav,activity.getString(R.string.new_sheet)));
+        items.add(new DialogItem(R.drawable.lay_icn_edit,activity.getString(R.string.pl_manage)));
 
         final MoreFragment fragment = MoreFragment.newInstance(title,items);
         fragment.setDialogItemClickListener(new MoreFragment.DialogItemClickListener() {

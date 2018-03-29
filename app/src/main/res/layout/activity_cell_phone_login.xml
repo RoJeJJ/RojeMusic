@@ -57,7 +57,7 @@
             android:gravity="start"
             android:inputType="phone"
             android:textSize="16sp"
-            android:lines="1"
+            android:singleLine="true"
             android:maxLength="11"
             android:hint="@string/login_input_phone_number"
             android:textAlignment="textStart" />
@@ -71,7 +71,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:textSize="16sp"
-        android:lines="1"
+        android:singleLine="true"
         android:background="@drawable/login_text_underline_selector"
         android:drawableLeft="@drawable/login_icn_password"
         android:drawableStart="@drawable/login_icn_password"

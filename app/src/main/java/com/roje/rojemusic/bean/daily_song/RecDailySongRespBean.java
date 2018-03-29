@@ -1,4 +1,4 @@
-package com.roje.rojemusic.bean.recommand;
+package com.roje.rojemusic.bean.daily_song;
 
 
 import java.util.List;
