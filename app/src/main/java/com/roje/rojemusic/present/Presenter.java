@@ -3,6 +3,7 @@ package com.roje.rojemusic.present;
 
 import com.google.gson.JsonObject;
 import com.roje.rojemusic.bean.banner.BannerRespBean;
+import com.roje.rojemusic.bean.comment.CommentResp;
 import com.roje.rojemusic.bean.content.ContentRespBean;
 import com.roje.rojemusic.bean.detail.UserDetailBean;
 import com.roje.rojemusic.bean.event.EventRespBean;
@@ -31,4 +32,5 @@ public interface Presenter {
     void topMV(JsonObject object, Observer<List<MvBean>> observer);
     void event(Observer<List<EventRespBean.EventBean>> observer);
     void recommendSong(JsonObject object, Observer<List<RecDailySongRespBean.RecommendBean>> observer);
+    void comment(String threadId, int limit, int offset, Observer<CommentResp> observer);
 }

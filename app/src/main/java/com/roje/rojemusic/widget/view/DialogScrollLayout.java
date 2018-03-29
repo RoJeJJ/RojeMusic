@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.NestedScrollingParent2;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -54,7 +53,6 @@ public class DialogScrollLayout extends RelativeLayout implements NestedScrollin
 
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @Nullable int[] consumed, int type) {
-        Log.i("dy", dy + "");
         if (axes != 0) {
             if (getTop() > 0) {
                 if (dy > 0 && dy > getTop()) { //上滑
@@ -199,8 +197,8 @@ public class DialogScrollLayout extends RelativeLayout implements NestedScrollin
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (getMeasuredHeight() > mScreenHeight / 2) {
-            int heightMS = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(heightMeasureSpec) / 2, MeasureSpec.getMode(heightMeasureSpec));
+        if (getMeasuredHeight() > mScreenHeight * 2/ 3) {
+            int heightMS = MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(heightMeasureSpec) * 2/ 3, MeasureSpec.getMode(heightMeasureSpec));
             super.onMeasure(widthMeasureSpec, heightMS);
         } else
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);

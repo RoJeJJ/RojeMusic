@@ -1,6 +1,7 @@
 package com.roje.rojemusic.bean.daily_song;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 public class RecDailySongRespBean {
@@ -24,7 +25,7 @@ public class RecDailySongRespBean {
         this.recommend = recommend;
     }
 
-    public static class RecommendBean {
+    public static class RecommendBean implements Serializable{
         private String name;
         private int id;
         private int position;

@@ -1,14 +1,18 @@
 package com.roje.rojemusic.api;
 
 
+import com.roje.rojemusic.bean.comment.CommentResp;
+
 import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 
 public interface RoJeApi {
@@ -88,4 +92,13 @@ public interface RoJeApi {
     @FormUrlEncoded
     @POST("/weapi/v1/discovery/recommend/songs")
     Observable<ResponseBody> recommendSong(@FieldMap Map<String,String> form);
+
+    /**
+     * 获取评论
+     * @param threadId threadid
+     * @param limit 评论数目
+     * @param offset 偏移量
+     */
+    @GET("http://music.163.com/api/v1/resource/comments/{threadId}")
+    Observable<CommentResp> comment(@Path("threadId") String threadId, @Query("limit") int limit, @Query("offset") int offset);
 }

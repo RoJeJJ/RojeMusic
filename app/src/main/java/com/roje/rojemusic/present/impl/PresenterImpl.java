@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.roje.rojemusic.api.RoJeRequest;
 import com.roje.rojemusic.bean.banner.BannerRespBean;
+import com.roje.rojemusic.bean.comment.CommentResp;
 import com.roje.rojemusic.bean.content.ContentRespBean;
 import com.roje.rojemusic.bean.detail.UserDetailBean;
 import com.roje.rojemusic.bean.event.EventRespBean;
@@ -25,7 +26,9 @@ import com.roje.rojemusic.bean.topmv.TopMvRespBean;
 import com.roje.rojemusic.present.MyException;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.utils.EncryptUtils;
+import com.roje.rojemusic.utils.Utils;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -272,6 +275,7 @@ public class PresenterImpl implements Presenter{
                     @Override
                     public List<RecDailySongRespBean.RecommendBean> apply(ResponseBody responseBody) throws Exception {
                         String data = responseBody.string();
+                        Utils.write2File("song.json",data);
                         JsonObject o = new JsonParser().parse(data).getAsJsonObject();
                         int code = o.get("code").getAsInt();
                         if (code == 200){
@@ -281,6 +285,14 @@ public class PresenterImpl implements Presenter{
                         throw new MyException(code,o.get("msg").getAsString());
                     }
                 })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void comment(String threadId, int limit, int offset, Observer<CommentResp> observer) {
+        RoJeRequest.getRoJeApi().comment(threadId,limit,offset)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

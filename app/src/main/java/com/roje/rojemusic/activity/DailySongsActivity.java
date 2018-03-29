@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bilibili.magicasakura.widgets.TintToolbar;
@@ -21,8 +22,7 @@ import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.bean.daily_song.RecDailySongRespBean;
-import com.roje.rojemusic.entities.DialogItem;
-import com.roje.rojemusic.fragment.dialog.MoreFragment;
+import com.roje.rojemusic.fragment.dialog.DailyMoreFragment;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.present.impl.PresenterImpl;
 import com.roje.rojemusic.utils.NetWorkUtil;
@@ -190,24 +190,18 @@ public class DailySongsActivity extends BaseActivity {
                     if (i != bean.getArtists().size() - 1)
                         sb.append("/");
                 }
-                final String artists = new String(sb);
                 sb.append(" - ").append(bean.getAlbum().getName());
                 h.subtitle.setText(sb);
                 h.more.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ArrayList<DialogItem> items = new ArrayList<>();
-                        items.add(new DialogItem(R.drawable.lay_icn_edit,getString(R.string.daily_more_next_play)));
-                        items.add(new DialogItem(R.drawable.lay_icn_edit,getString(R.string.daily_more_collect)));
-                        items.add(new DialogItem(R.drawable.lay_icn_edit,getString(R.string.daily_more_dld)));
-                        items.add(new DialogItem(R.drawable.lay_icn_edit,getString(R.string.daily_more_comment)));
-                        items.add(new DialogItem(R.drawable.lay_icn_edit,getString(R.string.daily_more_share)));
-                        items.add(new DialogItem(R.drawable.lay_icn_edit,getString(R.string.daily_more_artist,artists)));
-                        items.add(new DialogItem(R.drawable.lay_icn_edit,getString(R.string.daily_more_album,bean.getAlbum().getName())));
-                        items.add(new DialogItem(R.drawable.lay_icn_edit,getString(R.string.daily_more_video)));
-                        items.add(new DialogItem(R.drawable.lay_icn_edit,getString(R.string.daily_more_ringtone)));
-                        items.add(new DialogItem(R.drawable.lay_icn_edit,getString(R.string.daily_more_boring)));
-                        MoreFragment.newInstance("歌曲",items).show(getSupportFragmentManager(),"null");
+                        DailyMoreFragment.newInstance(bean).show(getSupportFragmentManager(),null);
+                    }
+                });
+                h.itemlayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
                     }
                 });
             }
@@ -257,6 +251,8 @@ public class DailySongsActivity extends BaseActivity {
             ImageView sqImg;
             @BindView(R.id.more)
             ImageView more;
+            @BindView(R.id.itemlayout)
+            LinearLayout itemlayout;
             public ItemHolder(View itemView) {
                 super(itemView);
                 ButterKnife.bind(this,itemView);

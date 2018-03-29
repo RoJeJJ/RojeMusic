@@ -77,11 +77,14 @@
     <string name="daily_more_next_play">下一首播放</string>
     <string name="daily_more_collect">收藏到歌单</string>
     <string name="daily_more_dld">下载</string>
-    <string name="daily_more_comment">评论(%1$d)</string>
+    <string name="daily_more_comment">评论</string>
     <string name="daily_more_share">分享</string>
     <string name="daily_more_artist">歌手:&#160;%1$s</string>
     <string name="daily_more_album">专辑:&#160;%1$s</string>
     <string name="daily_more_video">查看视频</string>
     <string name="daily_more_ringtone">彩铃</string>
     <string name="daily_more_boring">不感兴趣</string>
+    <string name="dialog_tip">该歌曲开通会员即可畅享</string>
+    <string name="dialog_song_name">歌曲:&#160;%1$s</string>
+    <string name="dialog_get_vip">开通VIP</string>
 </resources>

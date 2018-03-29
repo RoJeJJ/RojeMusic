@@ -62,6 +62,7 @@ public class LoadLayout extends FrameLayout {
         }
     }
     public void setLoadFail(){
+        load.setOnClickListener(nwl);
         load.setCompoundDrawables(null,null,null,null);
         load.setText(R.string.load_fail);
     }

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/itemlayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@drawable/list_item_click_bg">
 
     <ImageView
         android:id="@+id/cover"
@@ -63,5 +65,6 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         app:srcCompat="@drawable/list_icn_more"
-        android:scaleType="centerInside" />
+        android:scaleType="centerInside"
+        android:background="@drawable/list_item_click_bg"/>
 </LinearLayout>

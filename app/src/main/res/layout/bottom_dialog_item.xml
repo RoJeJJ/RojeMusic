@@ -21,6 +21,8 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:textAppearance="@style/TitleText14"
-        android:text="@string/newPList" />
+        android:text="@string/newPList"
+        android:clickable="true"
+        android:focusable="true" />
 
 </LinearLayout>
