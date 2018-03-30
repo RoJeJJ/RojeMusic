@@ -51,6 +51,8 @@ public class DailySongsActivity extends BaseActivity {
     private Presenter presenter;
     private List<RecDailySongRespBean.RecommendBean> dailySong;
     private Observer<List<RecDailySongRespBean.RecommendBean>> dailySongObserver;
+    private View head;
+    private boolean floatHead;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,8 @@ public class DailySongsActivity extends BaseActivity {
     }
 
     private void initViews() {
+        head = ButterKnife.findById(this,R.id.floatHead);
+        head.setVisibility(View.GONE);
         load.setNwl(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +92,23 @@ public class DailySongsActivity extends BaseActivity {
             dailyRecycle.addItemDecoration(itemDecoration);
         }
         dailyRecycle.setAdapter(adapter = new DailySongAdapter(this));
+        dailyRecycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                if (layoutManager instanceof LinearLayoutManager){
+                    LinearLayoutManager lm = (LinearLayoutManager) layoutManager;
+                    int position = lm.findFirstVisibleItemPosition();
+                    if (position >= 1){
+                        if (head.getVisibility() != View.VISIBLE)
+                            head.setVisibility(View.VISIBLE);
+                    }else
+                        if (head.getVisibility() != View.GONE)
+                            head.setVisibility(View.GONE);
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     @Override

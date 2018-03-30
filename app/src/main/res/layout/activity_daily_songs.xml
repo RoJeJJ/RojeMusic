@@ -27,13 +27,19 @@
             android:textAppearance="@style/Toolbar.Title" />
     </com.bilibili.magicasakura.widgets.TintToolbar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/dailyRecycle"
+    <FrameLayout
+        android:id="@+id/floatLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:overScrollMode="never">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/dailyRecycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:overScrollMode="never">
+        </android.support.v7.widget.RecyclerView>
+        <include android:id="@+id/floatHead" layout="@layout/daily_item_head"/>
+    </FrameLayout>
     <com.roje.rojemusic.widget.view.LoadLayout
         android:paddingTop="60dp"
         android:id="@+id/load"
