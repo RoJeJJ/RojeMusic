@@ -3,6 +3,7 @@ package com.roje.rojemusic.utils;
 
 import android.content.ContentUris;
 import android.net.Uri;
+import android.util.Base64;
 
 public class CommonUtil {
     public static final int FILE_SIZE = 1024 * 1024;//1MB

@@ -53,4 +53,5 @@ dependencies {
     implementation files('libs/BASE64Encoder.jar')
     implementation 'com.github.bumptech.glide:glide:4.5.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
+    implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.9'
 }

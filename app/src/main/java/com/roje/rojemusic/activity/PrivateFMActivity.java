@@ -26,7 +26,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.roje.rojemusic.R;
-import com.roje.rojemusic.async.BlurTransformation;
+import com.roje.rojemusic.widget.transformer.BlurTransformation;
 import com.roje.rojemusic.bean.personfm.Artist;
 import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.present.MyObserver;

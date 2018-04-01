@@ -8,6 +8,7 @@ import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.ViewConfiguration;
 import android.widget.TextView;
 
 
@@ -15,6 +16,8 @@ public class JumpMovementMethod extends LinkMovementMethod {
     private int clickColor;
     private static JumpMovementMethod sInstance;
     private BackgroundColorSpan bgSpan;
+    private float lastX,lastY;
+    private int touchSlop;
     public static JumpMovementMethod getInstance(int clickColor){
         if (sInstance == null)
             sInstance = new JumpMovementMethod(clickColor);
@@ -22,6 +25,7 @@ public class JumpMovementMethod extends LinkMovementMethod {
     }
     private JumpMovementMethod(int clickColor){
         this.clickColor = clickColor;
+        touchSlop = new ViewConfiguration().getScaledTouchSlop();
     }
 
     @Override
@@ -53,16 +57,19 @@ public class JumpMovementMethod extends LinkMovementMethod {
                         links[0].onClick(widget);
                     }
                 } else if (action == MotionEvent.ACTION_DOWN) {
+                    lastX = event.getX();
+                    lastY = event.getY();
                     buffer.setSpan(bgSpan = new BackgroundColorSpan(clickColor),
                             buffer.getSpanStart(links[0]),
                             buffer.getSpanEnd(links[0]),
                             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }else {
-                    buffer.removeSpan(bgSpan);
+                    if (Math.abs(event.getX() - lastX) > touchSlop || Math.abs(event.getY() - lastY) > touchSlop)
+                        buffer.removeSpan(bgSpan);
                 }
                 return true;
             } else {
-                buffer.removeSpan(bgSpan);
+                    buffer.removeSpan(bgSpan);
             }
         }
         return super.onTouchEvent(widget, buffer, event);

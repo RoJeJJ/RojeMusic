@@ -28,7 +28,7 @@
     </com.bilibili.magicasakura.widgets.TintToolbar>
 
     <FrameLayout
-        android:id="@+id/floatLayout"
+        android:id="@+id/stickLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <android.support.v7.widget.RecyclerView
