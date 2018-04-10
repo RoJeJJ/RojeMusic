@@ -9,7 +9,9 @@ import java.io.FileWriter;
 
 public class Utils {
     private static final String key = "Encrypt";
-    public static void write2File(String filename,String data){
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static void write2File(String filename, String data){
         File file = new File(Environment.getExternalStorageDirectory()+"/"+filename);
         try {
             if (!file.exists())

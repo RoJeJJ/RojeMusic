@@ -3,6 +3,7 @@ package com.roje.rojemusic.present.impl;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.roje.rojemusic.api.RoJeRequest;
@@ -26,6 +27,7 @@ import com.roje.rojemusic.bean.topmv.TopMvRespBean;
 import com.roje.rojemusic.present.MyException;
 import com.roje.rojemusic.present.Presenter;
 import com.roje.rojemusic.utils.EncryptUtils;
+import com.roje.rojemusic.utils.LogUtil;
 import com.roje.rojemusic.utils.Utils;
 
 import java.io.File;
@@ -252,13 +254,14 @@ public class PresenterImpl implements Presenter{
                     @Override
                     public List<EventRespBean.EventBean> apply(ResponseBody responseBody) throws Exception {
                         String s = responseBody.string();
+                        LogUtil.i(s);
                         JsonObject o = new JsonParser().parse(s).getAsJsonObject();
                         int code = o.get("code").getAsInt();
                         if (code == 200){
                             EventRespBean bean = gson.fromJson(s, EventRespBean.class);
                             return bean.getEvent();
                         }
-                        throw new MyException(code,o.get("msg").getAsString());
+                        throw new MyException(code,o.get("msg") == JsonNull.INSTANCE ? "null":o.get("msg").getAsString());
                     }
                 })
                 .subscribeOn(Schedulers.io())
