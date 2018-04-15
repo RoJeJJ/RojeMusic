@@ -25,6 +25,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
 import com.roje.rojemusic.R;
+import com.roje.rojemusic.RjApplication;
 import com.roje.rojemusic.activity.LoginActivity;
 import com.roje.rojemusic.bean.detail.UserDetailBean;
 import com.roje.rojemusic.present.MyObserver;
@@ -68,6 +69,7 @@ public class NavigationDrawerFragment extends BaseFragment {
         observer = new MyObserver<UserDetailBean>(activity) {
             @Override
             protected void next(UserDetailBean s) {
+                RjApplication.login = true;
                     detailBean = s;
                     refresh();
             }

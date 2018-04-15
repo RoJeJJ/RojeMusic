@@ -13,7 +13,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
-import com.roje.rojemusic.utils.DisplayUtil;
 
 import java.util.List;
 
@@ -89,7 +88,7 @@ public class RecommNewSongAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.cover)
+        @BindView(R.id.imageLayout)
         ImageView cover;
         @BindView(R.id.name)
         TextView name;

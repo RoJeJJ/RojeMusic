@@ -1,6 +1,7 @@
 package com.roje.rojemusic.bean.event;
 
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class EventRespBean {
         private int type;
         private boolean topEvent;
         private InfoBean info;
-        private List<?> pics;
+        private List<JsonObject> pics;
 
         public Object getActName() {
             return actName;
@@ -182,11 +183,11 @@ public class EventRespBean {
             this.info = info;
         }
 
-        public List<?> getPics() {
+        public List<JsonObject> getPics() {
             return pics;
         }
 
-        public void setPics(List<?> pics) {
+        public void setPics(List<JsonObject> pics) {
             this.pics = pics;
         }
 

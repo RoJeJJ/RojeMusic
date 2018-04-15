@@ -7,6 +7,7 @@ import com.roje.rojemusic.bean.comment.CommentResp;
 import com.roje.rojemusic.bean.content.ContentRespBean;
 import com.roje.rojemusic.bean.detail.UserDetailBean;
 import com.roje.rojemusic.bean.event.EventRespBean;
+import com.roje.rojemusic.bean.event.VideoUrl;
 import com.roje.rojemusic.bean.login.LoginRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
 import com.roje.rojemusic.bean.personfm.Song;
@@ -33,4 +34,6 @@ public interface Presenter {
     void event(Observer<List<EventRespBean.EventBean>> observer);
     void recommendSong(JsonObject object, Observer<List<RecDailySongRespBean.RecommendBean>> observer);
     void comment(String threadId, int limit, int offset, Observer<CommentResp> observer);
+    void mvAddr(JsonObject object,Observer<VideoUrl> observer);
+    void plCount(Observer<String> observer);
 }

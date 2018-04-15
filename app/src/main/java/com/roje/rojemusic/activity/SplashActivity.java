@@ -107,6 +107,6 @@ public class SplashActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-        }.start();
+        }/*.start()*/;
     }
 }

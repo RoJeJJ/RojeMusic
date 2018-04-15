@@ -87,21 +87,22 @@ public class MainMusicAdapter extends RecyclerView.Adapter<BaseHolder<? extends 
     }
 
     @Override
-    public void onExpand(SheetTabItem item) {
+    public void onExpand(ListTitleHolder holder,SheetTabItem item) {
         if (item.getPlaylist().size() > 0){
-            mData.addAll(item.getPosition()+1,item.getPlaylist());
+            mData.addAll(holder.getAdapterPosition()+1,item.getPlaylist());
 //            notifyItemRangeInserted(item.getPosition()+1,item.getPlayLists().size());
-            notifyDataSetChanged();
+            notifyItemRangeInserted(holder.getAdapterPosition()+1,item.getPlaylist().size());
+            notifyItemRangeChanged(holder.getAdapterPosition()+1,mData.size());
 //            ((LinearLayoutManager)recyclerView.getLayoutManager()).scrollToPositionWithOffset(item.getPosition(),0);
         }
     }
 
     @Override
-    public void onHide(SheetTabItem item) {
+    public void onHide(ListTitleHolder holder,SheetTabItem item) {
         if (item.getPlaylist().size() > 0){
             mData.removeAll(item.getPlaylist());
-//            notifyItemRangeRemoved(item.getPosition(),item.getPlayLists().size());
-            notifyDataSetChanged();
+            notifyItemRangeRemoved(holder.getAdapterPosition()+1,item.getPlaylist().size());
+            notifyItemRangeChanged(holder.getAdapterPosition()+1,mData.size());
         }
     }
 

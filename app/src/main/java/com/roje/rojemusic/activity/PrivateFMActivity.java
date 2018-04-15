@@ -213,9 +213,7 @@ public class PrivateFMActivity extends BaseActivity {
 
 
     private void initToolbar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(this), 0, 0);
-        setSupportActionBar(toolbar);
+        super.initToolbar(toolbar);
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
             bar.setDisplayShowTitleEnabled(false);

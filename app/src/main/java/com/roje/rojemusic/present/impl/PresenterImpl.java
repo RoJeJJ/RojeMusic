@@ -1,7 +1,5 @@
 package com.roje.rojemusic.present.impl;
 
-
-
 import com.google.gson.Gson;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
@@ -10,16 +8,17 @@ import com.roje.rojemusic.api.RoJeRequest;
 import com.roje.rojemusic.bean.banner.BannerRespBean;
 import com.roje.rojemusic.bean.comment.CommentResp;
 import com.roje.rojemusic.bean.content.ContentRespBean;
+import com.roje.rojemusic.bean.daily_song.RecDailySongRespBean;
 import com.roje.rojemusic.bean.detail.UserDetailBean;
 import com.roje.rojemusic.bean.event.EventRespBean;
+import com.roje.rojemusic.bean.event.VideoUrl;
 import com.roje.rojemusic.bean.login.LoginRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongRespBean;
 import com.roje.rojemusic.bean.newsong.NewSongResult;
-import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.bean.personfm.PersonFMBean;
+import com.roje.rojemusic.bean.personfm.Song;
 import com.roje.rojemusic.bean.playlist.Playlist;
 import com.roje.rojemusic.bean.playlist.PlaylistRootBean;
-import com.roje.rojemusic.bean.daily_song.RecDailySongRespBean;
 import com.roje.rojemusic.bean.recommand.RecPlResult;
 import com.roje.rojemusic.bean.recommand.RecPlaylistRootBean;
 import com.roje.rojemusic.bean.topmv.MvBean;
@@ -30,7 +29,6 @@ import com.roje.rojemusic.utils.EncryptUtils;
 import com.roje.rojemusic.utils.LogUtil;
 import com.roje.rojemusic.utils.Utils;
 
-import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +39,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
-
 
 public class PresenterImpl implements Presenter{
     private Gson gson;
@@ -254,9 +251,9 @@ public class PresenterImpl implements Presenter{
                     @Override
                     public List<EventRespBean.EventBean> apply(ResponseBody responseBody) throws Exception {
                         String s = responseBody.string();
-                        LogUtil.i(s);
                         JsonObject o = new JsonParser().parse(s).getAsJsonObject();
                         int code = o.get("code").getAsInt();
+                        LogUtil.i(code+"");
                         if (code == 200){
                             EventRespBean bean = gson.fromJson(s, EventRespBean.class);
                             return bean.getEvent();
@@ -296,6 +293,43 @@ public class PresenterImpl implements Presenter{
     @Override
     public void comment(String threadId, int limit, int offset, Observer<CommentResp> observer) {
         RoJeRequest.getRoJeApi().comment(threadId,limit,offset)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void mvAddr(JsonObject object, Observer<VideoUrl> observer) {
+        object.addProperty("csrf_token","");
+        Map<String,String> form = EncryptUtils.encrypt(object.toString());
+        RoJeRequest.getRoJeApi().mvAddr(form)
+                .map(new Function<ResponseBody, VideoUrl>() {
+                    @Override
+                    public VideoUrl apply(ResponseBody responseBody) throws Exception {
+                        String data = responseBody.string();
+                        VideoUrl vurl = gson.fromJson(data,VideoUrl.class);
+                        return vurl;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void plCount(Observer<String> observer) {
+        JsonObject object = new JsonObject();
+        object.addProperty("csrf_token","");
+        Map<String,String> form = EncryptUtils.encrypt(object.toString());
+        RoJeRequest.getRoJeApi().plCount(form)
+                .map(new Function<ResponseBody, String>() {
+                    @Override
+                    public String apply(ResponseBody responseBody) throws Exception {
+                        String data = responseBody.string();
+                        LogUtil.i(data);
+                        return data;
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

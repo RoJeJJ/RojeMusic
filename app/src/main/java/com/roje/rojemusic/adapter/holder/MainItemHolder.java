@@ -38,12 +38,11 @@ public class MainItemHolder<T extends MainItem> extends BaseHolder<T> {
 
     @Override
     public void bindView(final T data, int position) {
-        data.setPosition(position);
         itemView.setBackgroundResource(R.drawable.song_sheet_title_bg);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (data.getPosition() == 0)
+                if (getAdapterPosition() == 0)
                     activity.startActivity(new Intent(activity, LocalMusicActivity.class));
             }
         });

@@ -11,8 +11,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 17
         renderscriptSupportModeEnabled true
-        ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        externalNativeBuild {
+            cmake {
+                //生成多个版本的so文件
+                abiFilters 'armeabi', 'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'
+            }
         }
     }
     buildTypes {
@@ -21,6 +24,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { jni.srcDirs = ['src/main/jni', 'src/main/jniLibs/'] } }
 }
 
 dependencies {
@@ -54,4 +58,12 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.5.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.9'
+
+    //播放视频依赖
+    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
 }

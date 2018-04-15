@@ -13,13 +13,6 @@ public class SheetTabItem extends BaseItem {
         this.position = position;
     }
 
-    public boolean isRotation() {
-        return rotation;
-    }
-
-    public void setRotation(boolean rotation) {
-        this.rotation = rotation;
-    }
 
 
     public enum Type{
@@ -28,15 +21,12 @@ public class SheetTabItem extends BaseItem {
     }
     private Type type;
     private int position;
-    private boolean rotation;
 
     public boolean isExpand() {
         return expand;
     }
 
     public void setExpand(boolean expand) {
-        if (this.expand != expand)
-            rotation = true;
         this.expand = expand;
     }
 
@@ -45,7 +35,6 @@ public class SheetTabItem extends BaseItem {
         this.type = type;
         this.playlist = data;
         expand = false;
-        rotation = false;
     }
 
     public Type getType() {

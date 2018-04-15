@@ -58,7 +58,7 @@ public interface RoJeApi {
      * 广告横幅
      */
     @FormUrlEncoded
-    @POST("api/v2/banner/get")
+    @POST("/weapi/banner/get/v3")
     Observable<ResponseBody> getBanners(@FieldMap Map<String,String> form);
     /**
      * 独家放送
@@ -99,6 +99,19 @@ public interface RoJeApi {
      * @param limit 评论数目
      * @param offset 偏移量
      */
-    @GET("http://music.163.com/api/v1/resource/comments/{threadId}")
+    @GET("/api/v1/resource/comments/{threadId}")
     Observable<CommentResp> comment(@Path("threadId") String threadId, @Query("limit") int limit, @Query("offset") int offset);
+    /**
+     * 视频地址
+     */
+    @FormUrlEncoded
+    @POST("/weapi/cloudvideo/playurl")
+    Observable<ResponseBody> mvAddr(@FieldMap Map<String,String> form);
+
+    /**
+     * 排行榜
+     */
+    @FormUrlEncoded
+    @POST("/weapi/pl/count")
+    Observable<ResponseBody> plCount(@FieldMap Map<String,String> form);
 }

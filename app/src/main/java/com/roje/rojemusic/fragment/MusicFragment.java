@@ -52,8 +52,6 @@ public class MusicFragment extends BaseFragment {
     @BindView(R.id.recycler)
     RecyclerView recycler;
     private List<BaseItem> itemData;
-    private boolean createExpand;
-    private boolean collectExpand;
     private List<Playlist> plListCreat;
     private List<Playlist> plliistCollect;
     private MainMusicAdapter adapter;
@@ -81,8 +79,6 @@ public class MusicFragment extends BaseFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("create_expand",createExpand);
-        outState.putBoolean("collect_expand",collectExpand);
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,13 +118,6 @@ public class MusicFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            createExpand = savedInstanceState.getBoolean("create_expand", true);
-            collectExpand = savedInstanceState.getBoolean("collect_expand",false);
-        }else {
-            createExpand = true;
-            collectExpand = false;
-        }
         View rootView = inflater.inflate(R.layout.fragment_event, container, false);
         unbinder = ButterKnife.bind(this, rootView);
         initData();
@@ -153,11 +142,18 @@ public class MusicFragment extends BaseFragment {
         itemData.add(new MainItem(getString(R.string.music_fav),0,
                 R.drawable.music_icn_mv));
         createTab = new SheetTabItem(SheetTabItem.Type.title_type_create,plListCreat);
-        createTab.setExpand(createExpand);
         collectTab = new SheetTabItem(SheetTabItem.Type.title_type_collect,plliistCollect);
-        collectTab.setExpand(collectExpand);
+        createTab.setExpand(SharedPreferencesUtil.getCreateExpand(activity));
+        collectTab.setExpand(SharedPreferencesUtil.getCollectExpand(activity));
         itemData.add(createTab);
         itemData.add(collectTab);
+    }
+
+    @Override
+    public void onDestroy() {
+        SharedPreferencesUtil.setCollectExpand(activity,collectTab.isExpand());
+        SharedPreferencesUtil.setCreateExpand(activity,createTab.isExpand());
+        super.onDestroy();
     }
 
     private void initViews() {
@@ -172,17 +168,6 @@ public class MusicFragment extends BaseFragment {
         recycler.addItemDecoration(new MMitemDecoration(activity));
         adapter = new MainMusicAdapter(activity,itemData);
         recycler.setAdapter(adapter);
-        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
     }
 
     private void loadLocal() {
@@ -236,7 +221,7 @@ public class MusicFragment extends BaseFragment {
                 case 0:
                     cursor.moveToFirst();
                     localMusic.setCount(cursor.getInt(0));
-                    adapter.notifyItemChanged(localMusic.getPosition());
+                    adapter.notifyItemChanged(0);
                     break;
                 case 5:
                     plListCreat.clear();

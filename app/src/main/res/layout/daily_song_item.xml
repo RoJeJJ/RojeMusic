@@ -9,7 +9,7 @@
     android:background="@drawable/list_item_click_bg">
 
     <ImageView
-        android:id="@+id/cover"
+        android:id="@+id/imageLayout"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:contentDescription="@null"

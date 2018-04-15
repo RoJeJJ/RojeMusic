@@ -81,7 +81,7 @@ public class RecommendPlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (bean.getPlayCount() >= 100000)
                 h.count.setText(mContext.getString(R.string.play_count, (int) bean.getPlayCount() / 10000));
             else
-                h.count.setText(String.valueOf(bean.getPlayCount()));
+                h.count.setText(String.valueOf((int) bean.getPlayCount()));
         }
     }
 
@@ -92,7 +92,7 @@ public class RecommendPlAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.cover)
+        @BindView(R.id.imageLayout)
         ImageView cover;
         @BindView(R.id.name)
         TextView name;

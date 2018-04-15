@@ -27,6 +27,7 @@ import com.google.gson.JsonObject;
 import com.roje.rojemusic.R;
 import com.roje.rojemusic.activity.DailySongsActivity;
 import com.roje.rojemusic.activity.PrivateFMActivity;
+import com.roje.rojemusic.activity.RankingListActivity;
 import com.roje.rojemusic.adapter.PrivContentAdapter;
 import com.roje.rojemusic.adapter.RecommNewSongAdapter;
 import com.roje.rojemusic.adapter.RecommendPlAdapter;
@@ -178,6 +179,12 @@ public class DiscoverMusicFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(activity, DailySongsActivity.class));
+            }
+        });
+        iv_upbill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(activity, RankingListActivity.class));
             }
         });
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) banlayout.getLayoutParams();

@@ -1,6 +1,5 @@
 package com.roje.rojemusic.adapter.holder;
 
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -33,8 +32,8 @@ import butterknife.ButterKnife;
 
 public class ListTitleHolder<T extends SheetTabItem> extends BaseHolder<T> {
     public interface OnExpandableListener {
-        void onExpand(SheetTabItem item);
-        void onHide(SheetTabItem item);
+        void onExpand(ListTitleHolder holder,SheetTabItem item);
+        void onHide(ListTitleHolder holder,SheetTabItem item);
     }
     @BindView(R.id.title_ll)
     LinearLayout title_ll;
@@ -58,18 +57,8 @@ public class ListTitleHolder<T extends SheetTabItem> extends BaseHolder<T> {
         itemData.setPosition(position);
         itemView.setBackgroundResource(R.drawable.sheet_tab_bg);
         iv.setImageResource(R.drawable.recommend_icn_arr);
-        if (itemData.isRotation()){
-            itemData.setRotation(false);
-            ObjectAnimator oa;
-            if (itemData.isExpand()) {
-                oa = ObjectAnimator.ofFloat(iv,"rotation",0,90);
-            }else {
-                oa = ObjectAnimator.ofFloat(iv,"rotation",90,0);
-            }
-            oa.setDuration(200);
-            oa.setRepeatCount(0);
-            oa.start();
-        }
+        if (itemData.isExpand())
+            iv.setRotation(90);
         title_set.setImageResource(R.drawable.local_scan_icn_set);
         if (itemData.getType() == SheetTabItem.Type.title_type_create) {
             title.setText(activity.getString(R.string.create_play_list_title, itemData.getPlaylist().size()));
@@ -93,13 +82,13 @@ public class ListTitleHolder<T extends SheetTabItem> extends BaseHolder<T> {
             @Override
             public void onClick(View v) {
                 if (!itemData.isExpand()){
-                    listener.onExpand(itemData);
-//                    rotationAnimation(true);
                     itemData.setExpand(true);
+                    listener.onExpand(ListTitleHolder.this,itemData);
+                    rotationAnimation(true);
                 }else {
-                    listener.onHide(itemData);
-//                    rotationAnimation(false);
                     itemData.setExpand(false);
+                    listener.onHide(ListTitleHolder.this,itemData);
+                    rotationAnimation(false);
                 }
             }
         });

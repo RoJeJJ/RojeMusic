@@ -134,7 +134,7 @@ public class PrivContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.cover)
+        @BindView(R.id.imageLayout)
         ImageView cover;
         @BindView(R.id.name)
         TextView name;

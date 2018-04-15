@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bilibili.magicasakura.widgets.TintToolbar;
 import com.google.gson.JsonObject;
 import com.roje.rojemusic.R;
+import com.roje.rojemusic.RjApplication;
 import com.roje.rojemusic.bean.login.LoginRespBean;
 import com.roje.rojemusic.fragment.dialog.LoadingDialogFragment;
 import com.roje.rojemusic.present.MyObserver;
@@ -103,6 +104,7 @@ public class MobileLoginActivity extends BaseActivity {
                         @Override
                         protected void next(LoginRespBean s) {
                             dialog.dismiss();
+                            RjApplication.login = true;
                             SharedPreferencesUtil.setUerId(MobileLoginActivity.this,s.getProfile().getUserId());
                             SharedPreferencesUtil.setPrePhoneNumber(MobileLoginActivity.this,name.getText().toString());
                             Intent i = new Intent(MobileLoginActivity.this,MainActivity.class);
@@ -141,9 +143,7 @@ public class MobileLoginActivity extends BaseActivity {
     }
 
     private void initToolbar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            toolbar.setPadding(0, StatusBarUtil.getStatusBarHeight(this),0,0);
-        setSupportActionBar(toolbar);
+        super.initToolbar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

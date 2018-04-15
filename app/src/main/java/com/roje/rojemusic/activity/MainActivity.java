@@ -61,9 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void intToolbar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            toolbar.setPadding(0,StatusBarUtil.getStatusBarHeight(this),0,0);
-        setSupportActionBar(toolbar);
+       super.initToolbar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null){
             actionBar.setDisplayShowTitleEnabled(false);

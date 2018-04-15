@@ -76,15 +76,32 @@
         android:textSize="14sp"
         android:textColor="@color/primaryText"/>
 
-    <ImageView
-        android:id="@+id/cover"
+    <FrameLayout
+        android:id="@+id/imageLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textBody"
-        app:layout_constraintTop_toBottomOf="@+id/textBody" />
+        app:layout_constraintTop_toBottomOf="@+id/textBody" >
+       <com.roje.rojemusic.widget.view.VideoPlayerIJK
+           android:id="@+id/video"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/songFrame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.GridLayout
+                android:id="@+id/gridImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.GridLayout>
+        </LinearLayout>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/count"
@@ -92,8 +109,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cover"
-        app:layout_constraintStart_toStartOf="@+id/cover"
+        app:layout_constraintBottom_toBottomOf="@+id/imageLayout"
+        app:layout_constraintStart_toStartOf="@+id/imageLayout"
         android:layout_marginLeft="8dp" />
 
     <TextView
@@ -104,8 +121,8 @@
         android:textColor="@color/secondText"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/cover"
-        app:layout_constraintTop_toBottomOf="@+id/cover"
+        app:layout_constraintStart_toStartOf="@+id/imageLayout"
+        app:layout_constraintTop_toBottomOf="@+id/imageLayout"
         android:drawableLeft="@drawable/line_first"
         android:textAlignment="textStart"
         android:drawableStart="@drawable/line_first"

@@ -6,7 +6,7 @@
 
     <com.roje.rojemusic.widget.view.SquareImageView
         android:contentDescription="@null"
-        android:id="@+id/cover"
+        android:id="@+id/imageLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop" />
@@ -15,7 +15,7 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cover"
+        android:layout_below="@+id/imageLayout"
         android:ellipsize="end"
         android:maxLines="2"
         android:textAppearance="@style/TitleText12" />
@@ -27,7 +27,7 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/textSize10"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/cover"
+        android:layout_alignRight="@+id/imageLayout"
         android:drawablePadding="2dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="4dp"
@@ -36,6 +36,6 @@
         android:textAlignment="textStart"
         android:gravity="start"
         android:layout_marginEnd="4dp"
-        android:layout_alignEnd="@+id/cover" />
+        android:layout_alignEnd="@+id/imageLayout" />
 
 </RelativeLayout>

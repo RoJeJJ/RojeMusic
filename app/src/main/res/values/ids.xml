@@ -3,4 +3,5 @@
     <item name="coverId" type="id" >false</item>
     <item name="blurId" type="id">false</item>
     <item name="loading_dialog_iv" type="id">false</item>
+    <item name="mv_duration_id" type="id">false</item>
 </resources>
