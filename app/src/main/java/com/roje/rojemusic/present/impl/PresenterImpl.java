@@ -242,8 +242,18 @@ public class PresenterImpl implements Presenter{
     }
 
     @Override
-    public void event(Observer<List<EventRespBean.EventBean>> observer) {
+    public void event(boolean more,Observer<List<EventRespBean.EventBean>> observer) {
         JsonObject object = new JsonObject();
+        if (more){
+            object.addProperty("total",false);
+            object.addProperty("lasttime",System.currentTimeMillis());
+        }else {
+            object.addProperty("total",true);
+            object.addProperty("lasttime",-1);
+        }
+        object.addProperty("getcounts",true);
+        object.addProperty("limit",true);
+        object.addProperty("pagesize",20);
         object.addProperty("csrf_token","");
         Map<String,String> form = EncryptUtils.encrypt(object.toString());
         RoJeRequest.getRoJeApi().event(form)

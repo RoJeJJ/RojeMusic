@@ -1,5 +1,6 @@
 package com.roje.rojemusic.fragment;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bilibili.magicasakura.utils.ThemeUtils;
+import com.bilibili.magicasakura.widgets.TintImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -38,6 +40,7 @@ import com.roje.rojemusic.present.impl.PresenterImpl;
 import com.roje.rojemusic.utils.EncryptTool;
 import com.roje.rojemusic.utils.EncryptUtils;
 import com.roje.rojemusic.utils.LogUtil;
+import com.roje.rojemusic.utils.NetWorkUtil;
 import com.roje.rojemusic.widget.text.JumpMovementMethod;
 import com.roje.rojemusic.widget.transformer.CircleBitmapTransform;
 import com.roje.rojemusic.widget.view.VideoPlayerIJK;
@@ -70,10 +73,12 @@ public class FriendsFragment extends BaseFragment {
     private List<Long> newIds;
     private List<EventRespBean.EventBean> beanList;
     private Drawable divider;
-    private Disposable d;
+    private boolean loading = false;
+    private boolean more = false;
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
+            more = false;
             request();
         }
     };
@@ -101,26 +106,33 @@ public class FriendsFragment extends BaseFragment {
         observer = new Observer<List<EventRespBean.EventBean>>() {
             @Override
             public void onSubscribe(Disposable d) {
-                FriendsFragment.this.d = d;
             }
 
             @Override
             public void onNext(List<EventRespBean.EventBean> eventBeans) {
-                beanList.clear();
-                beanList.addAll(eventBeans);
-                adapter.notifyDataSetChanged();
+                if (!more){
+                    beanList.clear();
+                    beanList.addAll(eventBeans);
+                    adapter.notifyDataSetChanged();
+                }else {
+                    beanList.addAll(eventBeans);
+                    adapter.notifyDataSetChanged();
+                    loading = false;
+                }
             }
 
             @Override
             public void onError(Throwable e) {
                 if (refreshLayout.isRefreshing())
                     refreshLayout.setRefreshing(false);
+                loading = false;
             }
 
             @Override
             public void onComplete() {
                 if (refreshLayout.isRefreshing())
                     refreshLayout.setRefreshing(false);
+                loading = false;
             }
         };
     }
@@ -141,8 +153,13 @@ public class FriendsFragment extends BaseFragment {
     }
 
     private void request(){
+        if (!NetWorkUtil.isNetWorkAvailable(activity)){
+            Toast.makeText(activity,"当前无网络",Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (RjApplication.login){
-            presenter.event(observer);
+            loading = true;
+            presenter.event(more,observer);
         }else {
             if (refreshLayout.isRefreshing())
                 refreshLayout.setRefreshing(false);
@@ -151,10 +168,26 @@ public class FriendsFragment extends BaseFragment {
     }
     private void initViews() {
         recycler.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
-        recycler.setAdapter(adapter = new FriendsEventAdapter());
         DividerItemDecoration itemDecoration = new DividerItemDecoration(activity,DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(divider);
         recycler.addItemDecoration(itemDecoration);
+        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int pos = linearLayoutManager.findLastVisibleItemPosition();
+                if (pos == beanList.size() && !loading){
+                    more = true;
+                    request();
+                }
+            }
+        });
+        recycler.setAdapter(adapter = new FriendsEventAdapter());
         refreshLayout.setColorSchemeColors(ThemeUtils.getColorById(activity,R.color.theme_primary_color));
         refreshLayout.setOnRefreshListener(refreshListener);
     }
@@ -168,7 +201,7 @@ public class FriendsFragment extends BaseFragment {
         }
     }
 
-    class FriendsEventAdapter extends RecyclerView.Adapter<FriendsEventAdapter.Holder>{
+    class FriendsEventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         private Gson gson;
         private SimpleDateFormat dateFormat;
@@ -177,12 +210,17 @@ public class FriendsFragment extends BaseFragment {
             gson = new Gson();
         }
         @Override
-        public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(activity).inflate(R.layout.friend_item_layout,parent,false);
-            return new Holder(view);
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            if (viewType == 1){
+                View view = LayoutInflater.from(activity).inflate(R.layout.friend_item_layout,parent,false);
+                return new Holder(view);
+            }else if (viewType == 2){
+                View view = LayoutInflater.from(activity).inflate(R.layout.friend_item_load_more,parent,false);
+                return new LoadMoreHolder(view);
+            }
+            return null;
         }
 
-        @Override
         public void onBindViewHolder(Holder holder, int position) {
             int type = 0;
             EventRespBean.EventBean bean = beanList.get(position);
@@ -212,10 +250,10 @@ public class FriendsFragment extends BaseFragment {
                     holder.video.setVisibility(View.VISIBLE);
                     holder.songFrame.setVisibility(View.GONE);
                     VideoResp.Video video = gson.fromJson(object.get("video"), VideoResp.Video.class);
-                   holder.video.setVideo(video);
+                    holder.video.setVideo(video);
                     break;
                 default:
-                        t = bean.getUser().getNickname();
+                    t = bean.getUser().getNickname();
             }
             holder.title.setMovementMethod(JumpMovementMethod.getInstance(ContextCompat.getColor(activity,R.color.linkTextbg)));
             SpannableStringBuilder spanBuilder = new SpannableStringBuilder(t);
@@ -246,8 +284,29 @@ public class FriendsFragment extends BaseFragment {
         }
 
         @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            if (holder instanceof Holder)
+                onBindViewHolder((Holder)holder,position);
+            else if (holder instanceof  LoadMoreHolder){
+                    Drawable drawable = ((LoadMoreHolder)holder).load.getDrawable();
+                    if (drawable != null && drawable instanceof AnimationDrawable)
+                        ((AnimationDrawable)drawable).start();
+            }
+        }
+
+        @Override
         public int getItemCount() {
-            return beanList.size();
+            if (beanList.size() == 0)
+                return 0;
+            else
+                return beanList.size() + 1;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position == beanList.size())
+                return 2;
+            return 1;
         }
 
         class Holder extends RecyclerView.ViewHolder{
@@ -278,6 +337,14 @@ public class FriendsFragment extends BaseFragment {
             @BindView(R.id.songFrame)
             LinearLayout songFrame;
             Holder(View itemView){
+                super(itemView);
+                ButterKnife.bind(this,itemView);
+            }
+        }
+        class LoadMoreHolder extends RecyclerView.ViewHolder{
+            @BindView(R.id.load)
+            TintImageView load;
+            LoadMoreHolder(View itemView) {
                 super(itemView);
                 ButterKnife.bind(this,itemView);
             }

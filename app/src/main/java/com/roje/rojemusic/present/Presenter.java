@@ -31,7 +31,7 @@ public interface Presenter {
     void getPrivateContent(Observer<List<ContentRespBean.ResultBean>> observer);
     void newSong(Observer<List<NewSongResult>> observer);
     void topMV(JsonObject object, Observer<List<MvBean>> observer);
-    void event(Observer<List<EventRespBean.EventBean>> observer);
+    void event(boolean more,Observer<List<EventRespBean.EventBean>> observer);
     void recommendSong(JsonObject object, Observer<List<RecDailySongRespBean.RecommendBean>> observer);
     void comment(String threadId, int limit, int offset, Observer<CommentResp> observer);
     void mvAddr(JsonObject object,Observer<VideoUrl> observer);
